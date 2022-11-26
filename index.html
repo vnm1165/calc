@@ -1,0 +1,248 @@
+<html>
+
+<head>
+	<title>Tính RSS Evony</title>
+	<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/normalize/5.0.0/normalize.min.css">
+	<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/4.5.0/css/bootstrap.min.css">
+	<style>
+	.row-heading {
+		font-size: 1.3rem;
+		font-weight: bold;
+	}
+
+	.total {
+		font-size: 2rem;
+		font-weight: bold;
+	}
+
+	.total-val {
+		font-size: 2rem;
+		border:
+	}
+	</style>
+</head>
+
+<body translate="no">
+	<div class="container mt-4">
+		<div class="row"> 
+		  <select name="type_rss" id="type_rss">
+			<option value="luongthuc">Lương Thực</option>
+			<option value="go">Gỗ</option>
+			<option value="da">Đá</option>
+			<option value="quang">Quặng</option>
+		  </select>
+		  <button style="margin-left: 5; outline: none; border: 0; padding:5" onclick="ClearAll()">Xóa</button>
+		</div>
+		<div class="row">
+			<div class="col-3 row-heading"> Loại Item </div>
+			<div class="col-3 row-heading"> Số Lượng </div>
+			<div class="col-5 row-heading"> Tổng </div>
+		</div>
+		<div class="row">
+			<div class="col-3"> 1K </div>
+			<div class="col-3">
+				<input type="number" value="0" class="qty" id="qty_1k" min="0">
+			</div>
+			<div class="col-5">
+				<input type="text" readonly="" value="0" id="price_1k" disabled>
+			</div>
+		</div>
+		<div class="row my-3">
+			<div class="col-3"> 5K </div>
+			<div class="col-3">
+				<input type="number" value="0" class="qty" id="qty_5k" min="0">
+			</div>
+			<div class="col-5">
+				<input type="text" readonly="" value="0" id="price_5k" disabled>
+			</div>
+		</div>
+		<div class="row my-3">
+			<div class="col-3"> 10K </div>
+			<div class="col-3">
+				<input type="number" class="qty" value="0" id="qty_10k" min="0">
+			</div>
+			<div class="col-5">
+				<input type="text" readonly="" value="0" id="price_10k" disabled>
+			</div>
+		</div>
+		<div class="row my-3">
+			<div class="col-3"> 50K </div>
+			<div class="col-3">
+				<input type="number" class="qty" value="0" id="qty_50k" min="0">
+			</div>
+			<div class="col-5">
+				<input type="text" readonly="" value="0" id="price_50k" disabled>
+			</div>
+		</div>
+		<div class="row my-3">
+			<div class="col-3"> 100K </div>
+			<div class="col-3">
+				<input type="number" class="qty" value="0" id="qty_100k" min="0">
+			</div>
+			<div class="col-5">
+				<input type="text" readonly="" value="0" id="price_100k" disabled>
+			</div>
+		</div>
+		<div class="row my-3">
+			<div class="col-3"> 500K </div>
+			<div class="col-3">
+				<input type="number" class="qty" value="0" id="qty_500k" min="0">
+			</div>
+			<div class="col-5">
+				<input type="text" readonly="" value="0" id="price_500k" disabled>
+			</div>
+		</div>
+		<div class="row my-3">
+			<div class="col-3"> 1M </div>
+			<div class="col-3">
+				<input type="number" class="qty" value="0" id="qty_1m" min="0">
+			</div>
+			<div class="col-5">
+				<input type="text" readonly="" value="0" id="price_1m" disabled>
+			</div>
+		</div>
+		<div class="row my-3">
+			<div class="col-3"> 5M </div>
+			<div class="col-3">
+				<input type="number" class="qty" value="0" id="qty_5m" min="0">
+			</div>
+			<div class="col-5">
+				<input type="text" readonly="" value="0" id="price_5m" disabled>
+			</div>
+		</div>
+		<div class="row my-4">
+			<div class="col-7 text-right total"> Tổng </div>
+			<div class="col-4 total-val">
+				<span id="total_value">0</span>
+			</div>
+		</div>
+		<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+		<script id="rendered-js">
+		var data = {
+			luongthuc:{total:0,item_price:{}},
+			go:{total:0,item_price:{}},
+			da:{total:0,item_price:{}},
+			quang:{total:0,item_price:{}}
+		}
+		
+		var unit_price = {
+				item_1k: 1000,
+				item_5k: 5000,
+				item_10k: 10000,
+				item_50k: 50000,
+				item_100k: 100000,
+				item_500k: 500000,
+				item_1m: 1000000,
+				item_5m: 5000000
+		};
+		
+		function numberWithCommas(x) {
+			return x.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",");
+		}
+
+		function calculateTotal() {
+			let item_price = {};
+			item_price.item_1k = $("#qty_1k").val() * unit_price.item_1k;
+			$("#price_1k").val(numberWithCommas(item_price.item_1k));
+			item_price.item_5k = $("#qty_5k").val() * unit_price.item_5k;
+			$("#price_5k").val(numberWithCommas(item_price.item_5k));
+			item_price.item_10k = $("#qty_10k").val() * unit_price.item_10k;
+			$("#price_10k").val(numberWithCommas(item_price.item_10k));
+			item_price.item_50k = $("#qty_50k").val() * unit_price.item_50k;
+			$("#price_50k").val(numberWithCommas(item_price.item_50k));
+			item_price.item_100k = $("#qty_100k").val() * unit_price.item_100k;
+			$("#price_100k").val(numberWithCommas(item_price.item_100k));
+			item_price.item_500k = $("#qty_500k").val() * unit_price.item_500k;
+			$("#price_500k").val(numberWithCommas(item_price.item_500k));
+			item_price.item_1m = $("#qty_1m").val() * unit_price.item_1m;
+			$("#price_1m").val(numberWithCommas(item_price.item_1m));
+			item_price.item_5m = $("#qty_5m").val() * unit_price.item_5m;
+			$("#price_5m").val(numberWithCommas(item_price.item_5m));
+			let total = item_price.item_1k + item_price.item_5k + item_price.item_10k + item_price.item_50k + item_price.item_100k + item_price.item_500k + item_price.item_1m + item_price.item_5m;
+			$("#total_value").text(numberWithCommas(total));
+			data[$("#type_rss").val()].total = total;
+			data[$("#type_rss").val()].item_price = item_price;
+			localStorage.setItem('Data', JSON.stringify(data));
+		}
+		
+		$(function() {
+			$(".qty").on("change keyup", calculateTotal);
+		});
+		
+		function Clear(){
+			$("#qty_1k").val(0);
+			$("#price_1k").val(0);			
+			$("#qty_5k").val(0);
+			$("#price_5k").val(0);			
+			$("#qty_10k").val(0);
+			$("#price_10k").val(0);			
+			$("#qty_50k").val(0);
+			$("#price_50k").val(0);			
+			$("#qty_100k").val(0);
+			$("#price_100k").val(0);			
+			$("#qty_500k").val(0);
+			$("#price_500k").val(0);			
+			$("#qty_1m").val(0);
+			$("#price_1m").val(0);			
+			$("#qty_5m").val(0);
+			$("#price_5m").val(0);			
+			$("#total_value").text(0);
+		}
+		
+		function LoadOldData(){
+			let old_data = data[$("#type_rss").val()];
+			let total = old_data.total;
+			let item_price = old_data.item_price;
+			if(total > 0){				
+				$("#qty_1k").val(item_price.item_1k/unit_price.item_1k);
+				$("#price_1k").val(numberWithCommas(item_price.item_1k));			
+				
+				$("#qty_5k").val(item_price.item_5k/unit_price.item_5k);
+				$("#price_5k").val(numberWithCommas(item_price.item_5k));	
+				
+				$("#qty_10k").val(item_price.item_10k/unit_price.item_10k);
+				$("#price_10k").val(numberWithCommas(item_price.item_10k));			
+				
+				$("#qty_50k").val(item_price.item_50k/unit_price.item_50k);
+				$("#price_50k").val(numberWithCommas(item_price.item_50k));		
+				
+				$("#qty_100k").val(item_price.item_100k/unit_price.item_100k);
+				$("#price_100k").val(numberWithCommas(item_price.item_100k));	
+				
+				$("#qty_500k").val(item_price.item_500k/unit_price.item_500k);
+				$("#price_500k").val(numberWithCommas(item_price.item_500k));	
+				
+				$("#qty_1m").val(item_price.item_1m/unit_price.item_1m);
+				$("#price_1m").val(numberWithCommas(item_price.item_1m));	
+				
+				$("#qty_5m").val(item_price.item_5m/unit_price.item_5m);
+				$("#price_5m").val(numberWithCommas(item_price.item_5m));
+				
+				$("#total_value").text(numberWithCommas(total));
+			}
+		}
+		
+		$('#type_rss').on('change', function (e) {
+			Clear();
+			var optionSelected = $("option:selected", this);
+			var valueSelected = this.value;
+			LoadOldData();
+		});
+		
+		$(function() {
+			let local_data = JSON.parse(localStorage.getItem('Data'));
+			if(local_data){
+				data = local_data;
+				LoadOldData();
+			}
+		});
+		
+		function ClearAll(){
+			Clear();
+			localStorage.removeItem("Data");
+		}
+		</script>
+	</div>
+</body>
+
+</html>
