@@ -232,21 +232,22 @@
         }
 
         function numberWithCommasWithUnit(x) {
-          if (RenderWithUnit() == "Giờ") {
+          let unit_val = RenderWithUnit();
+          if (unit_val == "Giờ") {
             return (
               numberWithCommas(ConvertMinutesToHoursWithFloat(x)) +
               " " +
-              RenderWithUnit()
+              unit_val
             );
-          } else if (RenderWithUnit() == "Ngày") {
+          } else if (unit_val == "Ngày") {
             return (
               numberWithCommas(ConvertMinutesToDaysWithFloat(x)) +
               " " +
-              RenderWithUnit()
+              unit_val
             );
           }
 
-          return numberWithCommas(x) + " " + RenderWithUnit();
+          return numberWithCommas(x) + " " + unit_val;
         }
 
         function calculateTotal() {
