@@ -124,6 +124,24 @@
           <input type="text" readonly="" value="0" id="price_5m" disabled />
         </div>
       </div>
+      <div class="row my-3">
+        <div class="col-3">20M</div>
+        <div class="col-3">
+          <input type="number" class="qty" value="0" id="qty_20m" min="0" />
+        </div>
+        <div class="col-5">
+          <input type="text" readonly="" value="0" id="price_20m" disabled />
+        </div>
+      </div>
+      <div class="row my-3">
+        <div class="col-3">50M</div>
+        <div class="col-3">
+          <input type="number" class="qty" value="0" id="qty_50m" min="0" />
+        </div>
+        <div class="col-5">
+          <input type="text" readonly="" value="0" id="price_50m" disabled />
+        </div>
+      </div>
       <div class="row my-4">
         <div class="col-7 text-right total">Tổng</div>
         <div class="col-4 total-val">
@@ -139,15 +157,20 @@
           quang: { total: 0, item_price: {} },
         };
 
+        const OneK = 1000;
+        const OneMillion = 1000000;
+
         var unit_price = {
-          item_1k: 1000,
-          item_5k: 5000,
-          item_10k: 10000,
-          item_50k: 50000,
-          item_100k: 100000,
-          item_500k: 500000,
-          item_1m: 1000000,
-          item_5m: 5000000,
+          item_1k: 1 * OneK,
+          item_5k: 5 * OneK,
+          item_10k: 10 * OneK,
+          item_50k: 50 * OneK,
+          item_100k: 100 * OneK,
+          item_500k: 500 * OneK,
+          item_1m: 1 * OneMillion,
+          item_5m: 5 * OneMillion,
+          item_20m: 20 * OneMillion,
+          item_50m: 50 * OneMillion,
         };
 
         function numberWithCommas(x) {
@@ -172,6 +195,10 @@
           $("#price_1m").val(numberWithCommas(item_price.item_1m));
           item_price.item_5m = $("#qty_5m").val() * unit_price.item_5m;
           $("#price_5m").val(numberWithCommas(item_price.item_5m));
+          item_price.item_20m = $("#qty_20m").val() * unit_price.item_20m;
+          $("#price_20m").val(numberWithCommas(item_price.item_20m));
+          item_price.item_50m = $("#qty_50m").val() * unit_price.item_50m;
+          $("#price_50m").val(numberWithCommas(item_price.item_50m));
           let total =
             item_price.item_1k +
             item_price.item_5k +
@@ -180,7 +207,9 @@
             item_price.item_100k +
             item_price.item_500k +
             item_price.item_1m +
-            item_price.item_5m;
+            item_price.item_5m +
+            item_price.item_20m +
+            item_price.item_50m;
           let sel = document.getElementById("type_rss");
           $("#total_value").text(
             numberWithCommas(total) + " " + sel.options[sel.selectedIndex].text
@@ -211,6 +240,10 @@
           $("#price_1m").val(0);
           $("#qty_5m").val(0);
           $("#price_5m").val(0);
+          $("#qty_20m").val(0);
+          $("#price_20m").val(0);
+          $("#qty_50m").val(0);
+          $("#price_50m").val(0);
           $("#total_value").text(0);
         }
 
@@ -244,6 +277,12 @@
 
             $("#qty_5m").val(item_price.item_5m / unit_price.item_5m);
             $("#price_5m").val(numberWithCommas(item_price.item_5m));
+
+            $("#qty_20m").val(item_price.item_20m / unit_price.item_20m);
+            $("#price_20m").val(numberWithCommas(item_price.item_20m));
+
+            $("#qty_50m").val(item_price.item_50m / unit_price.item_50m);
+            $("#price_5.m").val(numberWithCommas(item_price.item_50m));
             let sel = document.getElementById("type_rss");
             $("#total_value").text(
               numberWithCommas(total) +
