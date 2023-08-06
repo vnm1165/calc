@@ -1,6 +1,6 @@
 <html>
   <head>
-    <title>Tính TT Evony</title>
+    <title>Tính Tăng Tốc Evony</title>
     <link
       rel="icon"
       type="image/png"
@@ -29,19 +29,25 @@
       .row input {
         width: 100%;
       }
+      #type_tt:focus {
+        outline: 0;
+      }
+      #type_unit:focus {
+        outline: 0;
+      }
     </style>
   </head>
   <body translate="no">
     <div class="container mt-4">
       <div class="row">
         <select name="type_tt" id="type_tt">
-          <option value="thuong">TT Thường</option>
-          <option value="quan">TT Luyện Quân</option>
-          <option value="nghiencuu">TT Nghiên Cứu</option>
-          <option value="bay">TT Xây Bẫy</option>
-          <option value="chetac">TT Chế Tác</option>
-          <option value="xaydung">TT Xây Dựng</option>
-          <option value="mau">TT Hồi Máu</option>
+          <option value="thuong">Tăng Tốc Thường</option>
+          <option value="quan">Tăng Tốc Luyện Quân</option>
+          <option value="nghiencuu">Tăng Tốc Nghiên Cứu</option>
+          <option value="bay">Tăng Tốc Xây Bẫy</option>
+          <option value="chetac">Tăng Tốc Chế Tác</option>
+          <option value="xaydung">Tăng Tốc Xây Dựng</option>
+          <option value="mau">Tăng Tốc Hồi Máu</option>
         </select>
         <select name="type_unit" id="type_unit" style="margin-left: 5px">
           <option value="phut">Phút</option>
@@ -51,17 +57,18 @@
         <button
           style="margin-left: 5; outline: none; border: 0; padding: 5"
           onclick="ClearAll()"
+          id="TT_CLR"
         >
           Xóa
         </button>
       </div>
       <div class="row">
-        <div class="col-3 row-heading">Loại Item</div>
-        <div class="col-3 row-heading">Số Lượng</div>
-        <div class="col-5 row-heading">Tổng</div>
+        <div class="col-3 row-heading" id="Item_Type">Loại Item</div>
+        <div class="col-3 row-heading" id="Quantity">Số Lượng</div>
+        <div class="col-5 row-heading" id="Total">Tổng</div>
       </div>
       <div class="row">
-        <div class="col-3">5 Phút</div>
+        <div class="col-3" id="5_Phut">5 Phút</div>
         <div class="col-3">
           <input type="number" value="0" class="qty" id="qty_5p" min="0" />
         </div>
@@ -70,7 +77,7 @@
         </div>
       </div>
       <div class="row my-3">
-        <div class="col-3">10 Phút</div>
+        <div class="col-3" id="10_Phut">10 Phút</div>
         <div class="col-3">
           <input type="number" value="0" class="qty" id="qty_10p" min="0" />
         </div>
@@ -80,7 +87,7 @@
       </div>
 
       <div class="row my-3">
-        <div class="col-3">15 Phút</div>
+        <div class="col-3" id="15_Phut">15 Phút</div>
         <div class="col-3">
           <input type="number" value="0" class="qty" id="qty_15p" min="0" />
         </div>
@@ -90,7 +97,7 @@
       </div>
 
       <div class="row my-3">
-        <div class="col-3">30 Phút</div>
+        <div class="col-3" id="30_Phut">30 Phút</div>
         <div class="col-3">
           <input type="number" value="0" class="qty" id="qty_30p" min="0" />
         </div>
@@ -100,7 +107,7 @@
       </div>
 
       <div class="row my-3">
-        <div class="col-3">60 Phút</div>
+        <div class="col-3" id="60_Phut">60 Phút</div>
         <div class="col-3">
           <input type="number" value="0" class="qty" id="qty_60p" min="0" />
         </div>
@@ -110,7 +117,7 @@
       </div>
 
       <div class="row my-3">
-        <div class="col-3">3 Giờ</div>
+        <div class="col-3" id="3_Gio">3 Giờ</div>
         <div class="col-3">
           <input type="number" value="0" class="qty" id="qty_3g" min="0" />
         </div>
@@ -120,7 +127,7 @@
       </div>
 
       <div class="row my-3">
-        <div class="col-3">8 Giờ</div>
+        <div class="col-3" id="8_Gio">8 Giờ</div>
         <div class="col-3">
           <input type="number" value="0" class="qty" id="qty_8g" min="0" />
         </div>
@@ -130,7 +137,7 @@
       </div>
 
       <div class="row my-3">
-        <div class="col-3">12 Giờ</div>
+        <div class="col-3" id="12_Gio">12 Giờ</div>
         <div class="col-3">
           <input type="number" value="0" class="qty" id="qty_12g" min="0" />
         </div>
@@ -140,7 +147,7 @@
       </div>
 
       <div class="row my-3">
-        <div class="col-3">24 Giờ</div>
+        <div class="col-3" id="24_Gio">24 Giờ</div>
         <div class="col-3">
           <input type="number" value="0" class="qty" id="qty_24g" min="0" />
         </div>
@@ -150,7 +157,7 @@
       </div>
 
       <div class="row my-3">
-        <div class="col-3">3 Ngày</div>
+        <div class="col-3" id="3_Ngay">3 Ngày</div>
         <div class="col-3">
           <input type="number" value="0" class="qty" id="qty_3d" min="0" />
         </div>
@@ -160,7 +167,7 @@
       </div>
 
       <div class="row my-3">
-        <div class="col-3">7 Ngày</div>
+        <div class="col-3" id="7_Ngay">7 Ngày</div>
         <div class="col-3">
           <input type="number" value="0" class="qty" id="qty_7d" min="0" />
         </div>
@@ -170,7 +177,7 @@
       </div>
 
       <div class="row my-3">
-        <div class="col-3">30 Ngày</div>
+        <div class="col-3" id="30_Ngay">30 Ngày</div>
         <div class="col-3">
           <input type="number" value="0" class="qty" id="qty_30d" min="0" />
         </div>
@@ -180,13 +187,180 @@
       </div>
 
       <div class="row my-4">
-        <div class="col-7 text-right total">Tổng</div>
+        <div class="col-7 text-right total" id="total_text">Tổng:</div>
         <div class="col-4 total-val">
           <span id="total_value">0</span>
         </div>
       </div>
       <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
       <script id="rendered-js">
+        function Rerender(lang) {
+          let langTitle = {
+            title: {
+              en: "Calculation Acceleration Evony",
+              vi: "Tính Tăng Tốc Evony",
+            },
+            ttOption: {
+              en: {
+                optionTHUONG: "Normal Speed ​​Up",
+                optionQUAN: "Military Training Speed ​​Up",
+                optionNGHIENCUU: "Research Speed ​​Up",
+                optionBAY: "Trap Build Speed ​​Up",
+                optionCHETAC: "Crafting Speed ​​Up ",
+                optionXAYDUNG: "Construction Speed ​​Up",
+                optionMAU: "Heal Speed ​​Up",
+              },
+              vi: {
+                optionTHUONG: "Tăng Tốc Thường",
+                optionQUAN: "Tăng Tốc Luyện Quân",
+                optionNGHIENCUU: "Tăng Tốc Nghiên Cứu",
+                optionBAY: "Tăng Tốc Xây Bẫy",
+                optionCHETAC: "Tăng Tốc Chế Tác",
+                optionXAYDUNG: "Tăng Tốc Xây Dựng",
+                optionMAU: "Tăng Tốc Hồi Máu",
+              },
+            },
+            unitOption: {
+              en: {
+                optionPHUT: "Minute",
+                optionGIO: "Hour",
+                optionNGAY: "Day",
+              },
+              vi: {
+                optionPHUT: "Phút",
+                optionGIO: "Giờ",
+                optionNGAY: "Ngày",
+              },
+            },
+            buttonCLR: {
+              en: "Clear",
+              vi: "Xoá",
+            },
+            typeItem: {
+              en: {
+                Item_Type: "Item Type",
+                Quantity: "Quantity",
+                Total: "Total",
+              },
+              vi: {
+                Item_Type: "Loại Item",
+                Quantity: "Số Lượng",
+                Total: "Tổng",
+              },
+            },
+            total: {
+              en: "Total:",
+              vi: "Tổng:",
+            },
+            item: {
+              en: {
+                "5_Phut": "5 Minute",
+                "10_Phut": "10 Minute",
+                "15_Phut": "15 Minute",
+                "30_Phut": "30 Minute",
+                "60_Phut": "60 Minute",
+                "3_Gio": "3 Hour",
+                "8_Gio": "8 Hour",
+                "12_Gio": "12 Hour",
+                "24_Gio": "24 Hour",
+                "3_Ngay": "3 Day",
+                "7_Ngay": "7 Day",
+                "30_Ngay": "30 Day",
+              },
+              vi: {
+                "5_Phut": "5 Phút",
+                "10_Phut": "10 Phút",
+                "15_Phut": "15 Phút",
+                "30_Phut": "30 Phút",
+                "60_Phut": "60 Phút",
+                "3_Gio": "3 Giờ",
+                "8_Gio": "8 Giờ",
+                "12_Gio": "12 Giờ",
+                "24_Gio": "24 Giờ",
+                "3_Ngay": "3 Ngày",
+                "7_Ngay": "7 Ngày",
+                "30_Ngay": "30 Ngày",
+              },
+            },
+          };
+
+          document.title = langTitle.title[lang];
+
+          var selectElement = document.getElementById("type_tt");
+
+          for (var i = 0; i < selectElement.options.length; i++) {
+            var optionValue = selectElement.options[i].value;
+            selectElement.options[i].text =
+              langTitle.ttOption[lang]["option" + optionValue.toUpperCase()];
+          }
+
+          var selectElement2 = document.getElementById("type_unit");
+
+          for (var i = 0; i < selectElement2.options.length; i++) {
+            var optionValue = selectElement2.options[i].value;
+            selectElement2.options[i].text =
+              langTitle.unitOption[lang]["option" + optionValue.toUpperCase()];
+          }
+
+          var buttoTTCLR = document.getElementById("TT_CLR");
+          buttoTTCLR.textContent = langTitle.buttonCLR[lang];
+
+          document.getElementById("Item_Type").textContent =
+            langTitle.typeItem[lang].Item_Type;
+
+          document.getElementById("Quantity").textContent =
+            langTitle.typeItem[lang].Quantity;
+
+          document.getElementById("Total").textContent =
+            langTitle.typeItem[lang].Total;
+
+          document.getElementById("total_text").textContent =
+            langTitle.total[lang];
+
+          document.getElementById("5_Phut").textContent =
+            langTitle.item[lang]["5_Phut"];
+
+          document.getElementById("10_Phut").textContent =
+            langTitle.item[lang]["10_Phut"];
+
+          document.getElementById("15_Phut").textContent =
+            langTitle.item[lang]["15_Phut"];
+
+          document.getElementById("30_Phut").textContent =
+            langTitle.item[lang]["30_Phut"];
+
+          document.getElementById("60_Phut").textContent =
+            langTitle.item[lang]["60_Phut"];
+
+          document.getElementById("3_Gio").textContent =
+            langTitle.item[lang]["3_Gio"];
+
+          document.getElementById("8_Gio").textContent =
+            langTitle.item[lang]["8_Gio"];
+
+          document.getElementById("12_Gio").textContent =
+            langTitle.item[lang]["12_Gio"];
+
+          document.getElementById("24_Gio").textContent =
+            langTitle.item[lang]["24_Gio"];
+
+          document.getElementById("3_Ngay").textContent =
+            langTitle.item[lang]["3_Ngay"];
+
+          document.getElementById("7_Ngay").textContent =
+            langTitle.item[lang]["7_Ngay"];
+
+          document.getElementById("30_Ngay").textContent =
+            langTitle.item[lang]["30_Ngay"];
+        }
+
+        $(function () {
+          let Lang = localStorage.getItem("Lang") || "vi";
+          $("#type_lang").val(Lang);
+
+          Rerender(Lang);
+        });
+
         var data = {
           thuong: { total: 0, item_price: {} },
           quan: { total: 0, item_price: {} },
@@ -308,39 +482,74 @@
           $(".qty").on("change keyup", calculateTotal);
         });
 
-        function Clear() {
+        function Clear(remove = true) {
+          let item_price = {};
           $("#qty_5p").val(0);
           $("#price_5p").val(0);
+          item_price.item_5p = 0;
+
           $("#qty_10p").val(0);
           $("#price_10p").val(0);
+          item_price.item_10p = 0;
+
           $("#qty_15p").val(0);
           $("#price_15p").val(0);
+          item_price.item_15p = 0;
+
           $("#qty_30p").val(0);
           $("#price_30p").val(0);
+          item_price.item_30p = 0;
+
           $("#qty_60p").val(0);
           $("#price_60p").val(0);
+          item_price.item_60p = 0;
+
           $("#qty_3g").val(0);
           $("#price_3g").val(0);
+          item_price.item_3g = 0;
+
           $("#qty_8g").val(0);
           $("#price_8g").val(0);
+          item_price.item_8g = 0;
+
           $("#qty_12g").val(0);
           $("#price_12g").val(0);
+          item_price.item_12g = 0;
+
           $("#qty_24g").val(0);
           $("#price_24g").val(0);
+          item_price.item_24g = 0;
+
           $("#qty_3d").val(0);
           $("#price_3d").val(0);
+          item_price.item_3d = 0;
+
           $("#qty_7d").val(0);
           $("#price_7d").val(0);
+          item_price.item_7d = 0;
+
           $("#qty_30d").val(0);
           $("#price_30d").val(0);
+          item_price.item_30d = 0;
 
-          $("#total_value").text(0);
+          let sel = document.getElementById("type_tt");
+          $("#total_value").text(
+            "0 " + " " + sel.options[sel.selectedIndex].text
+          );
+
+          if (remove) {
+            data[$("#type_tt").val()].total = 0;
+            data[$("#type_tt").val()].item_price = item_price;
+            localStorage.setItem("Data_TT", JSON.stringify(data));
+          }
         }
 
         function LoadOldData() {
           let sel = document.getElementById("type_tt");
           $("#total_value").text(
-            "0 " + " " + sel.options[sel.selectedIndex].text
+            numberWithCommasWithUnit(0) +
+              " " +
+              sel.options[sel.selectedIndex].text
           );
           let old_data = data[$("#type_tt").val()];
           let total = old_data.total;
@@ -382,7 +591,6 @@
             $("#qty_30d").val(item_price.item_30d / unit_price.item_30d);
             $("#price_30d").val(numberWithCommasWithUnit(item_price.item_30d));
 
-            let sel = document.getElementById("type_tt");
             $("#total_value").text(
               numberWithCommasWithUnit(total) +
                 " " +
@@ -392,14 +600,14 @@
         }
 
         $("#type_tt").on("change", function (e) {
-          Clear();
+          Clear(false);
           var optionSelected = $("option:selected", this);
           var valueSelected = this.value;
           LoadOldData();
         });
 
         $("#type_unit").on("change", function (e) {
-          Clear();
+          Clear(false);
           var optionSelected = $("option:selected", this);
           var valueSelected = this.value;
           LoadOldData();
@@ -425,7 +633,9 @@
           } else {
             let sel = document.getElementById("type_tt");
             $("#total_value").text(
-              "0 " + " " + sel.options[sel.selectedIndex].text
+              numberWithCommasWithUnit(0) +
+                " " +
+                sel.options[sel.selectedIndex].text
             );
           }
           sortSelectOptions("#type_tt");
