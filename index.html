@@ -1,6 +1,7 @@
 <html>
   <head>
-    <title>Tính Tài Nguyên Evony</title>
+    <meta charset="UTF-8" />
+    <title>Tính Tài Nguyên, Tăng Tốc Evony</title>
     <link
       rel="icon"
       type="image/png"
@@ -10,552 +11,361 @@
       rel="stylesheet"
       href="https://cdnjs.cloudflare.com/ajax/libs/normalize/5.0.0/normalize.min.css"
     />
-    <link
-      rel="stylesheet"
-      href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/4.5.0/css/bootstrap.min.css"
-    />
     <style>
-      .row-heading {
-        font-size: 1.3rem;
-        font-weight: bold;
-      }
-      .total {
-        font-size: 2rem;
-        font-weight: bold;
-      }
-      .total-val {
-        font-size: 2rem;
-      }
-      .row input {
+      @import "https://fonts.googleapis.com/css?family=Montserrat:400,700|Raleway:300,400";
+      html {
         width: 100%;
+        height: 100%;
       }
-
-      #type_rss:focus {
+      body {
+        background: #efefef;
+        color: #333;
+        font-family: "Raleway";
+        height: 100%;
+      }
+      body h1 {
+        text-align: center;
+        color: #428bff;
+        font-weight: 300;
+        padding: 40px 0 20px 0;
+        margin: 0;
+      }
+      .tabs {
+        left: 50%;
+        transform: translateX(-50%);
+        position: relative;
+        background: white;
+        padding: 10px;
+        width: 90%;
+        box-shadow: 0 14px 28px rgba(0, 0, 0, 0.25),
+          0 10px 10px rgba(0, 0, 0, 0.22);
+        border-radius: 5px;
+        min-width: 240px;
+      }
+      .tabs input[name="tab-control"] {
+        display: none;
+      }
+      .tabs .content section h2,
+      .tabs ul li label {
+        font-family: "Montserrat";
+        font-weight: bold;
+        font-size: 18px;
+        color: #428bff;
+      }
+      .tabs ul {
+        list-style-type: none;
+        padding-left: 0;
+        display: flex;
+        flex-direction: row;
+        margin-bottom: 10px;
+        justify-content: space-between;
+        align-items: flex-end;
+        flex-wrap: wrap;
+      }
+      .tabs ul li {
+        box-sizing: border-box;
+        flex: 1;
+        width: 25%;
+        padding: 0 10px;
+        text-align: center;
+      }
+      .tabs ul li label {
+        transition: all 0.3s ease-in-out;
+        color: #929daf;
+        padding: 5px auto;
+        overflow: hidden;
+        text-overflow: ellipsis;
+        display: block;
+        cursor: pointer;
+        transition: all 0.2s ease-in-out;
+        white-space: nowrap;
+        -webkit-touch-callout: none;
+        -webkit-user-select: none;
+        -moz-user-select: none;
+        -ms-user-select: none;
+        user-select: none;
+      }
+      .tabs ul li label br {
+        display: none;
+      }
+      .tabs ul li label svg {
+        fill: #929daf;
+        height: 1.2em;
+        vertical-align: bottom;
+        margin-right: 0.2em;
+        transition: all 0.2s ease-in-out;
+      }
+      .tabs ul li label:hover,
+      .tabs ul li label:focus,
+      .tabs ul li label:active {
+        outline: 0;
+        color: #bec5cf;
+      }
+      .tabs ul li label:hover svg,
+      .tabs ul li label:focus svg,
+      .tabs ul li label:active svg {
+        fill: #bec5cf;
+      }
+      .tabs .content {
+        margin-top: 10px;
+      }
+      .tabs .content section {
+        display: none;
+        -webkit-animation-name: content;
+        animation-name: content;
+        -webkit-animation-direction: normal;
+        animation-direction: normal;
+        -webkit-animation-duration: 0.3s;
+        animation-duration: 0.3s;
+        -webkit-animation-timing-function: ease-in-out;
+        animation-timing-function: ease-in-out;
+        -webkit-animation-iteration-count: 1;
+        animation-iteration-count: 1;
+        line-height: 1.4;
+      }
+      .tabs .content section h2 {
+        color: #428bff;
+        display: none;
+      }
+      .tabs .content section h2::after {
+        content: "";
+        position: relative;
+        display: block;
+        width: 30px;
+        height: 3px;
+        background: #428bff;
+        margin-top: 5px;
+        left: 1px;
+      }
+      .tabs
+        input[name="tab-control"]:nth-of-type(1):checked
+        ~ ul
+        > li:nth-child(1)
+        > label {
+        cursor: default;
+        color: #428bff;
+      }
+      .tabs
+        input[name="tab-control"]:nth-of-type(1):checked
+        ~ ul
+        > li:nth-child(1)
+        > label
+        svg {
+        fill: #428bff;
+      }
+      @media (max-width: 600px) {
+        .tabs
+          input[name="tab-control"]:nth-of-type(1):checked
+          ~ ul
+          > li:nth-child(1)
+          > label {
+          background: rgba(0, 0, 0, 0.08);
+        }
+      }
+      .tabs input[name="tab-control"]:nth-of-type(1):checked ~ .slider {
+        transform: translateX(0%);
+      }
+      .tabs
+        input[name="tab-control"]:nth-of-type(1):checked
+        ~ .content
+        > section:nth-child(1) {
+        display: block;
+      }
+      .tabs
+        input[name="tab-control"]:nth-of-type(2):checked
+        ~ ul
+        > li:nth-child(2)
+        > label {
+        cursor: default;
+        color: #428bff;
+      }
+      .tabs
+        input[name="tab-control"]:nth-of-type(2):checked
+        ~ ul
+        > li:nth-child(2)
+        > label
+        svg {
+        fill: #428bff;
+      }
+      @media (max-width: 600px) {
+        .tabs
+          input[name="tab-control"]:nth-of-type(2):checked
+          ~ ul
+          > li:nth-child(2)
+          > label {
+          background: rgba(0, 0, 0, 0.08);
+        }
+      }
+      .tabs input[name="tab-control"]:nth-of-type(2):checked ~ .slider {
+        transform: translateX(100%);
+      }
+      .tabs
+        input[name="tab-control"]:nth-of-type(2):checked
+        ~ .content
+        > section:nth-child(2) {
+        display: block;
+      }
+      @-webkit-keyframes content {
+        from {
+          opacity: 0;
+          transform: translateY(5%);
+        }
+        to {
+          opacity: 1;
+          transform: translateY(0%);
+        }
+      }
+      @keyframes content {
+        from {
+          opacity: 0;
+          transform: translateY(5%);
+        }
+        to {
+          opacity: 1;
+          transform: translateY(0%);
+        }
+      }
+      @media (max-width: 1000px) {
+        .tabs ul li label {
+          white-space: initial;
+        }
+        .tabs ul li label br {
+          display: initial;
+        }
+        .tabs ul li label svg {
+          height: 1.5em;
+        }
+      }
+      @media (max-width: 600px) {
+        .tabs ul li label {
+          padding: 5px;
+          border-radius: 5px;
+        }
+        .tabs ul li label span {
+          display: none;
+        }
+        .tabs .slider {
+          display: none;
+        }
+        .tabs .content {
+          margin-top: 20px;
+        }
+        .tabs .content section h2 {
+          display: block;
+        }
+      }
+      #type_lang:focus {
         outline: 0;
       }
     </style>
   </head>
-  <body translate="no">
-    <div class="container mt-4">
-      <div class="row">
-        <select name="type_rss" id="type_rss">
-          <option value="luongthuc">Lương Thực</option>
-          <option value="go">Gỗ</option>
-          <option value="da">Đá</option>
-          <option value="quang">Quặng</option>
-        </select>
-        <button
-          style="margin-left: 5; outline: none; border: 0; padding: 5"
-          onclick="ClearAll()"
-          id="RSS_CLR"
-        >
-          Xóa
-        </button>
+  <body>
+    <div class="tabs">
+      <select name="type_lang" id="type_lang">
+        <option value="vi">Tiếng Việt</option>
+        <option value="en">Tiếng Anh</option>
+      </select>
+      <input type="radio" id="tab1" name="tab-control" checked="" />
+      <input type="radio" id="tab2" name="tab-control" />
+      <input type="radio" id="tab3" name="tab-control" />
+      <input type="radio" id="tab4" name="tab-control" />
+      <ul>
+        <li title="RSS">
+          <label for="tab1" role="button">
+            <svg
+              width="32px"
+              height="32px"
+              viewBox="0 0 32 32"
+              xmlns="http://www.w3.org/2000/svg"
+            >
+              <path
+                d="M16 32C7.163 32 0 24.837 0 16S7.163 0 16 0s16 7.163 16 16-7.163 16-16 16zm-5.5-7.362l3.467-1.812V10.745l4.952 2.778-3.714 1.933v3.987L23.5 25v-3.745l-5.076-3.503 4.21-2.175v-3.866L13.966 7 10.5 8.812z"
+              />
+            </svg>
+            <br /><span>RSS</span>
+          </label>
+        </li>
+        <li title="TT">
+          <label for="tab2" role="button">
+            <svg
+              width="64px"
+              height="64px"
+              viewBox="0 0 64 64"
+              xmlns="http://www.w3.org/2000/svg"
+              xmlns:xlink="http://www.w3.org/1999/xlink"
+              aria-hidden="true"
+              role="img"
+              class="iconify iconify--emojione"
+              preserveAspectRatio="xMidYMid meet"
+            >
+              <circle cx="32" cy="32" r="30"></circle>
+              <path
+                d="M43.8 17.5v5.1h-8.7v23.9H29V22.6h-8.7v-5.1h23.5"
+                fill="#fff"
+              ></path>
+            </svg>
+            <br /><span>TT</span>
+          </label>
+        </li>
+      </ul>
+      <div class="content">
+        <section>
+          <h2>RSS</h2>
+          <iframe
+            id="RSS"
+            src="rss.html"
+            title="RSS"
+            style="width: 100%; height: 100%; border: none"
+          ></iframe>
+        </section>
+        <section>
+          <h2>TT</h2>
+          <iframe
+            id="TT"
+            src="tt.html"
+            title="TT"
+            style="width: 100%; height: 100%; border: none"
+          ></iframe>
+        </section>
       </div>
-      <div class="row">
-        <div class="col-3 row-heading" id="Item_Type">Loại Item</div>
-        <div class="col-3 row-heading" id="Quantity">Số Lượng</div>
-        <div class="col-5 row-heading" id="Total">Tổng</div>
-      </div>
-      <div class="row">
-        <div class="col-3">1K</div>
-        <div class="col-3">
-          <input type="number" value="0" class="qty" id="qty_1k" min="0" />
-        </div>
-        <div class="col-5">
-          <input
-            type="text"
-            readonly=""
-            value="0"
-            id="price_1k"
-            disabled
-            min="0"
-          />
-        </div>
-      </div>
-      <div class="row my-3">
-        <div class="col-3">5K</div>
-        <div class="col-3">
-          <input type="number" value="0" class="qty" id="qty_5k" min="0" />
-        </div>
-        <div class="col-5">
-          <input
-            type="text"
-            readonly=""
-            value="0"
-            id="price_5k"
-            disabled
-            min="0"
-          />
-        </div>
-      </div>
-      <div class="row my-3">
-        <div class="col-3">10K</div>
-        <div class="col-3">
-          <input type="number" class="qty" value="0" id="qty_10k" min="0" />
-        </div>
-        <div class="col-5">
-          <input
-            type="text"
-            readonly=""
-            value="0"
-            id="price_10k"
-            disabled
-            min="0"
-          />
-        </div>
-      </div>
-      <div class="row my-3">
-        <div class="col-3">50K</div>
-        <div class="col-3">
-          <input type="number" class="qty" value="0" id="qty_50k" min="0" />
-        </div>
-        <div class="col-5">
-          <input
-            type="text"
-            readonly=""
-            value="0"
-            id="price_50k"
-            disabled
-            min="0"
-          />
-        </div>
-      </div>
-      <div class="row my-3">
-        <div class="col-3">100K</div>
-        <div class="col-3">
-          <input type="number" class="qty" value="0" id="qty_100k" min="0" />
-        </div>
-        <div class="col-5">
-          <input
-            type="text"
-            readonly=""
-            value="0"
-            id="price_100k"
-            disabled
-            min="0"
-          />
-        </div>
-      </div>
-      <div class="row my-3">
-        <div class="col-3">500K</div>
-        <div class="col-3">
-          <input type="number" class="qty" value="0" id="qty_500k" min="0" />
-        </div>
-        <div class="col-5">
-          <input
-            type="text"
-            readonly=""
-            value="0"
-            id="price_500k"
-            disabled
-            min="0"
-          />
-        </div>
-      </div>
-      <div class="row my-3">
-        <div class="col-3">1M</div>
-        <div class="col-3">
-          <input type="number" class="qty" value="0" id="qty_1m" min="0" />
-        </div>
-        <div class="col-5">
-          <input
-            type="text"
-            readonly=""
-            value="0"
-            id="price_1m"
-            disabled
-            min="0"
-          />
-        </div>
-      </div>
-      <div class="row my-3">
-        <div class="col-3">5M</div>
-        <div class="col-3">
-          <input type="number" class="qty" value="0" id="qty_5m" min="0" />
-        </div>
-        <div class="col-5">
-          <input
-            type="text"
-            readonly=""
-            value="0"
-            id="price_5m"
-            disabled
-            min="0"
-          />
-        </div>
-      </div>
-      <div class="row my-3">
-        <div class="col-3">20M</div>
-        <div class="col-3">
-          <input type="number" class="qty" value="0" id="qty_20m" min="0" />
-        </div>
-        <div class="col-5">
-          <input
-            type="text"
-            readonly=""
-            value="0"
-            id="price_20m"
-            disabled
-            min="0"
-          />
-        </div>
-      </div>
-      <div class="row my-3">
-        <div class="col-3">50M</div>
-        <div class="col-3">
-          <input type="number" class="qty" value="0" id="qty_50m" min="0" />
-        </div>
-        <div class="col-5">
-          <input
-            type="text"
-            readonly=""
-            value="0"
-            id="price_50m"
-            disabled
-            min="0"
-          />
-        </div>
-      </div>
-      <div class="row my-3">
-        <div class="col-3" id="cs_text">Có sẵn</div>
-        <div class="col-3">
-          <input
-            type="number"
-            class="qty"
-            value="1"
-            id="qty_cs"
-            min="0"
-            readonly=""
-            disabled
-          />
-        </div>
-        <div class="col-5">
-          <input class="price" type="number" value="0" id="price_cs" min="0" />
-        </div>
-      </div>
-      <div class="row my-4">
-        <div class="col-7 text-right total" id="total_text">Tổng:</div>
-        <div class="col-4 total-val">
-          <span id="total_value">0</span>
-        </div>
-      </div>
-      <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
-      <script id="rendered-js">
-        function Rerender(lang) {
-          let langTitle = {
-            title: {
-              en: "Calculating Resources Evony",
-              vi: "Tính Tài Nguyên Evony",
-            },
-            rssOption: {
-              en: {
-                optionLUONGTHUC: "Food",
-                optionGO: "Wood",
-                optionDA: "Stone",
-                optionQUANG: "Ore",
-              },
-              vi: {
-                optionLUONGTHUC: "Lương Thực",
-                optionGO: "Gỗ",
-                optionDA: "Đá",
-                optionQUANG: "Quặng",
-              },
-            },
-            buttonCLR: {
-              en: "Clear",
-              vi: "Xoá",
-            },
-            typeItem: {
-              en: {
-                Item_Type: "Item Type",
-                Quantity: "Quantity",
-                Total: "Total",
-              },
-              vi: {
-                Item_Type: "Loại Item",
-                Quantity: "Số Lượng",
-                Total: "Tổng",
-              },
-            },
-            cs: {
-              en: "Available",
-              vi: "Có sẵn",
-            },
-            total: {
-              en: "Total:",
-              vi: "Tổng:",
-            },
-          };
-          document.title = langTitle.title[lang];
-          var selectElement = document.getElementById("type_rss");
-
-          for (var i = 0; i < selectElement.options.length; i++) {
-            var optionValue = selectElement.options[i].value;
-            selectElement.options[i].text =
-              langTitle.rssOption[lang]["option" + optionValue.toUpperCase()];
-          }
-
-          var buttonRSSCLR = document.getElementById("RSS_CLR");
-          buttonRSSCLR.textContent = langTitle.buttonCLR[lang];
-
-          document.getElementById("Item_Type").textContent =
-            langTitle.typeItem[lang].Item_Type;
-
-          document.getElementById("Quantity").textContent =
-            langTitle.typeItem[lang].Quantity;
-
-          document.getElementById("Total").textContent =
-            langTitle.typeItem[lang].Total;
-
-          document.getElementById("cs_text").textContent = langTitle.cs[lang];
-
-          document.getElementById("total_text").textContent =
-            langTitle.total[lang];
-        }
-
-        $(function () {
-          let Lang = localStorage.getItem("Lang") || "vi";
-          $("#type_lang").val(Lang);
-
-          Rerender(Lang);
-        });
-
-        var data = {
-          luongthuc: { total: 0, item_price: {} },
-          go: { total: 0, item_price: {} },
-          da: { total: 0, item_price: {} },
-          quang: { total: 0, item_price: {} },
-        };
-
-        const OneK = 1000;
-        const OneMillion = 1000000;
-
-        var unit_price = {
-          item_1k: 1 * OneK,
-          item_5k: 5 * OneK,
-          item_10k: 10 * OneK,
-          item_50k: 50 * OneK,
-          item_100k: 100 * OneK,
-          item_500k: 500 * OneK,
-          item_1m: 1 * OneMillion,
-          item_5m: 5 * OneMillion,
-          item_20m: 20 * OneMillion,
-          item_50m: 50 * OneMillion,
-        };
-
-        function numberWithCommas(x) {
-          return x.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",");
-        }
-
-        function calculateTotal() {
-          let item_price = {};
-
-          item_price.item_1k = $("#qty_1k").val() * unit_price.item_1k;
-          $("#price_1k").val(numberWithCommas(item_price.item_1k));
-
-          item_price.item_5k = $("#qty_5k").val() * unit_price.item_5k;
-          $("#price_5k").val(numberWithCommas(item_price.item_5k));
-
-          item_price.item_10k = $("#qty_10k").val() * unit_price.item_10k;
-          $("#price_10k").val(numberWithCommas(item_price.item_10k));
-
-          item_price.item_50k = $("#qty_50k").val() * unit_price.item_50k;
-          $("#price_50k").val(numberWithCommas(item_price.item_50k));
-
-          item_price.item_100k = $("#qty_100k").val() * unit_price.item_100k;
-          $("#price_100k").val(numberWithCommas(item_price.item_100k));
-
-          item_price.item_500k = $("#qty_500k").val() * unit_price.item_500k;
-          $("#price_500k").val(numberWithCommas(item_price.item_500k));
-
-          item_price.item_1m = $("#qty_1m").val() * unit_price.item_1m;
-          $("#price_1m").val(numberWithCommas(item_price.item_1m));
-
-          item_price.item_5m = $("#qty_5m").val() * unit_price.item_5m;
-          $("#price_5m").val(numberWithCommas(item_price.item_5m));
-
-          item_price.item_20m = $("#qty_20m").val() * unit_price.item_20m;
-          $("#price_20m").val(numberWithCommas(item_price.item_20m));
-
-          item_price.item_50m = $("#qty_50m").val() * unit_price.item_50m;
-          $("#price_50m").val(numberWithCommas(item_price.item_50m));
-
-          item_price.item_cs = $("#qty_cs").val() * $("#price_cs").val();
-
-          let total =
-            item_price.item_1k +
-            item_price.item_5k +
-            item_price.item_10k +
-            item_price.item_50k +
-            item_price.item_100k +
-            item_price.item_500k +
-            item_price.item_1m +
-            item_price.item_5m +
-            item_price.item_20m +
-            item_price.item_50m +
-            item_price.item_cs;
-
-          let sel = document.getElementById("type_rss");
-
-          $("#total_value").text(
-            numberWithCommas(total) + " " + sel.options[sel.selectedIndex].text
-          );
-
-          data[$("#type_rss").val()].total = total;
-          data[$("#type_rss").val()].item_price = item_price;
-          localStorage.setItem("Data", JSON.stringify(data));
-        }
-
-        $(function () {
-          $(".qty").on("change keyup", calculateTotal);
-        });
-
-        $(function () {
-          $(".price").on("change keyup", calculateTotal);
-        });
-
-        function Clear(remove = true) {
-          let item_price = {};
-
-          $("#qty_1k").val(0);
-          $("#price_1k").val(0);
-          item_price.item_1k = 0;
-
-          $("#qty_5k").val(0);
-          $("#price_5k").val(0);
-          item_price.item_5k = 0;
-
-          $("#qty_10k").val(0);
-          $("#price_10k").val(0);
-          item_price.item_10k = 0;
-
-          $("#qty_50k").val(0);
-          $("#price_50k").val(0);
-          item_price.item_50k = 0;
-
-          $("#qty_100k").val(0);
-          $("#price_100k").val(0);
-          item_price.item_100k = 0;
-
-          $("#qty_500k").val(0);
-          $("#price_500k").val(0);
-          item_price.item_500k = 0;
-
-          $("#qty_1m").val(0);
-          $("#price_1m").val(0);
-          item_price.item_1m = 0;
-
-          $("#qty_5m").val(0);
-          $("#price_5m").val(0);
-          item_price.item_5m = 0;
-
-          $("#qty_20m").val(0);
-          $("#price_20m").val(0);
-          item_price.item_20m = 0;
-
-          $("#qty_50m").val(0);
-          $("#price_50m").val(0);
-          item_price.item_50m = 0;
-
-          $("#qty_cs").val(1);
-          $("#price_cs").val(0);
-          item_price.item_cs = 0;
-
-          let sel = document.getElementById("type_rss");
-          $("#total_value").text("0 " + sel.options[sel.selectedIndex].text);
-
-          if (remove) {
-            data[$("#type_rss").val()].total = 0;
-            data[$("#type_rss").val()].item_price = item_price;
-            localStorage.setItem("Data", JSON.stringify(data));
-          }
-        }
-
-        function LoadOldData() {
-          let sel = document.getElementById("type_rss");
-          $("#total_value").text("0 " + sel.options[sel.selectedIndex].text);
-          let old_data = data[$("#type_rss").val()];
-          let total = old_data.total;
-          let item_price = old_data.item_price;
-          if (total > 0) {
-            $("#qty_1k").val(item_price.item_1k / unit_price.item_1k);
-            $("#price_1k").val(numberWithCommas(item_price.item_1k));
-
-            $("#qty_5k").val(item_price.item_5k / unit_price.item_5k);
-            $("#price_5k").val(numberWithCommas(item_price.item_5k));
-
-            $("#qty_10k").val(item_price.item_10k / unit_price.item_10k);
-            $("#price_10k").val(numberWithCommas(item_price.item_10k));
-
-            $("#qty_50k").val(item_price.item_50k / unit_price.item_50k);
-            $("#price_50k").val(numberWithCommas(item_price.item_50k));
-
-            $("#qty_100k").val(item_price.item_100k / unit_price.item_100k);
-            $("#price_100k").val(numberWithCommas(item_price.item_100k));
-
-            $("#qty_500k").val(item_price.item_500k / unit_price.item_500k);
-            $("#price_500k").val(numberWithCommas(item_price.item_500k));
-
-            $("#qty_1m").val(item_price.item_1m / unit_price.item_1m);
-            $("#price_1m").val(numberWithCommas(item_price.item_1m));
-
-            $("#qty_5m").val(item_price.item_5m / unit_price.item_5m);
-            $("#price_5m").val(numberWithCommas(item_price.item_5m));
-
-            $("#qty_20m").val(item_price.item_20m / unit_price.item_20m);
-            $("#price_20m").val(numberWithCommas(item_price.item_20m));
-
-            $("#qty_50m").val(item_price.item_50m / unit_price.item_50m);
-            $("#price_5.m").val(numberWithCommas(item_price.item_50m));
-
-            $("#qty_cs").val(1);
-            $("#price_cs").val(item_price.item_cs);
-
-            $("#total_value").text(
-              numberWithCommas(total) +
-                " " +
-                sel.options[sel.selectedIndex].text
-            );
-          }
-        }
-
-        $("#type_rss").on("change", function (e) {
-          Clear(false);
-          var optionSelected = $("option:selected", this);
-          var valueSelected = this.value;
-          LoadOldData();
-        });
-
-        function sortSelectOptions(selectElement) {
-          var options = $(selectElement + " option");
-
-          options.sort(function (a, b) {
-            if (a.text.toUpperCase() > b.text.toUpperCase()) return 1;
-            else if (a.text.toUpperCase() < b.text.toUpperCase()) return -1;
-            else return 0;
-          });
-
-          $(selectElement).empty().append(options);
-        }
-
-        $(function () {
-          let local_data = JSON.parse(localStorage.getItem("Data"));
-          if (local_data) {
-            data = local_data;
-            LoadOldData();
-          } else {
-            let sel = document.getElementById("type_rss");
-            $("#total_value").text("0 " + sel.options[sel.selectedIndex].text);
-          }
-          sortSelectOptions("#type_rss");
-        });
-
-        function ClearAll() {
-          Clear();
-          localStorage.removeItem("Data");
-        }
-      </script>
     </div>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+    <script>
+      function Rerender(lang) {
+        let langTitle = {
+          title: {
+            en: "Calculation Resource, Acceleration Evony",
+            vi: "Tính Tài Nguyên, Tăng Tốc Evony",
+          },
+          langOption: {
+            en: { optionVI: "Vietnamese", optionEN: "English" },
+            vi: { optionVI: "Tiếng Việt", optionEN: "Tiếng Anh" },
+          },
+        };
+        document.title = langTitle.title[lang];
+        var selectElement = document.getElementById("type_lang");
+
+        for (var i = 0; i < selectElement.options.length; i++) {
+          var optionValue = selectElement.options[i].value;
+          selectElement.options[i].text =
+            langTitle.langOption[lang]["option" + optionValue.toUpperCase()];
+        }
+      }
+
+      $(function () {
+        let Lang = localStorage.getItem("Lang") || "vi";
+        $("#type_lang").val(Lang);
+        Rerender(Lang);
+      });
+
+      $("#type_lang").on("change", function (e) {
+        var optionSelected = $("option:selected", this);
+        var valueSelected = this.value;
+        localStorage.setItem("Lang", valueSelected);
+        document.getElementById("RSS").contentWindow.location.reload();
+        document.getElementById("TT").contentWindow.location.reload();
+        Rerender(valueSelected);
+      });
+    </script>
   </body>
 </html>
