@@ -1,6 +1,6 @@
 <html>
   <head>
-    <title>Tính RSS Evony</title>
+    <title>Tính Tài Nguyên Evony</title>
     <link
       rel="icon"
       type="image/png"
@@ -29,6 +29,10 @@
       .row input {
         width: 100%;
       }
+
+      #type_rss:focus {
+        outline: 0;
+      }
     </style>
   </head>
   <body translate="no">
@@ -43,14 +47,15 @@
         <button
           style="margin-left: 5; outline: none; border: 0; padding: 5"
           onclick="ClearAll()"
+          id="RSS_CLR"
         >
           Xóa
         </button>
       </div>
       <div class="row">
-        <div class="col-3 row-heading">Loại Item</div>
-        <div class="col-3 row-heading">Số Lượng</div>
-        <div class="col-5 row-heading">Tổng</div>
+        <div class="col-3 row-heading" id="Item_Type">Loại Item</div>
+        <div class="col-3 row-heading" id="Quantity">Số Lượng</div>
+        <div class="col-5 row-heading" id="Total">Tổng</div>
       </div>
       <div class="row">
         <div class="col-3">1K</div>
@@ -58,7 +63,14 @@
           <input type="number" value="0" class="qty" id="qty_1k" min="0" />
         </div>
         <div class="col-5">
-          <input type="text" readonly="" value="0" id="price_1k" disabled />
+          <input
+            type="text"
+            readonly=""
+            value="0"
+            id="price_1k"
+            disabled
+            min="0"
+          />
         </div>
       </div>
       <div class="row my-3">
@@ -67,7 +79,14 @@
           <input type="number" value="0" class="qty" id="qty_5k" min="0" />
         </div>
         <div class="col-5">
-          <input type="text" readonly="" value="0" id="price_5k" disabled />
+          <input
+            type="text"
+            readonly=""
+            value="0"
+            id="price_5k"
+            disabled
+            min="0"
+          />
         </div>
       </div>
       <div class="row my-3">
@@ -76,7 +95,14 @@
           <input type="number" class="qty" value="0" id="qty_10k" min="0" />
         </div>
         <div class="col-5">
-          <input type="text" readonly="" value="0" id="price_10k" disabled />
+          <input
+            type="text"
+            readonly=""
+            value="0"
+            id="price_10k"
+            disabled
+            min="0"
+          />
         </div>
       </div>
       <div class="row my-3">
@@ -85,7 +111,14 @@
           <input type="number" class="qty" value="0" id="qty_50k" min="0" />
         </div>
         <div class="col-5">
-          <input type="text" readonly="" value="0" id="price_50k" disabled />
+          <input
+            type="text"
+            readonly=""
+            value="0"
+            id="price_50k"
+            disabled
+            min="0"
+          />
         </div>
       </div>
       <div class="row my-3">
@@ -94,7 +127,14 @@
           <input type="number" class="qty" value="0" id="qty_100k" min="0" />
         </div>
         <div class="col-5">
-          <input type="text" readonly="" value="0" id="price_100k" disabled />
+          <input
+            type="text"
+            readonly=""
+            value="0"
+            id="price_100k"
+            disabled
+            min="0"
+          />
         </div>
       </div>
       <div class="row my-3">
@@ -103,7 +143,14 @@
           <input type="number" class="qty" value="0" id="qty_500k" min="0" />
         </div>
         <div class="col-5">
-          <input type="text" readonly="" value="0" id="price_500k" disabled />
+          <input
+            type="text"
+            readonly=""
+            value="0"
+            id="price_500k"
+            disabled
+            min="0"
+          />
         </div>
       </div>
       <div class="row my-3">
@@ -112,7 +159,14 @@
           <input type="number" class="qty" value="0" id="qty_1m" min="0" />
         </div>
         <div class="col-5">
-          <input type="text" readonly="" value="0" id="price_1m" disabled />
+          <input
+            type="text"
+            readonly=""
+            value="0"
+            id="price_1m"
+            disabled
+            min="0"
+          />
         </div>
       </div>
       <div class="row my-3">
@@ -121,7 +175,14 @@
           <input type="number" class="qty" value="0" id="qty_5m" min="0" />
         </div>
         <div class="col-5">
-          <input type="text" readonly="" value="0" id="price_5m" disabled />
+          <input
+            type="text"
+            readonly=""
+            value="0"
+            id="price_5m"
+            disabled
+            min="0"
+          />
         </div>
       </div>
       <div class="row my-3">
@@ -130,7 +191,14 @@
           <input type="number" class="qty" value="0" id="qty_20m" min="0" />
         </div>
         <div class="col-5">
-          <input type="text" readonly="" value="0" id="price_20m" disabled />
+          <input
+            type="text"
+            readonly=""
+            value="0"
+            id="price_20m"
+            disabled
+            min="0"
+          />
         </div>
       </div>
       <div class="row my-3">
@@ -139,17 +207,120 @@
           <input type="number" class="qty" value="0" id="qty_50m" min="0" />
         </div>
         <div class="col-5">
-          <input type="text" readonly="" value="0" id="price_50m" disabled />
+          <input
+            type="text"
+            readonly=""
+            value="0"
+            id="price_50m"
+            disabled
+            min="0"
+          />
+        </div>
+      </div>
+      <div class="row my-3">
+        <div class="col-3" id="cs_text">Có sẵn</div>
+        <div class="col-3">
+          <input
+            type="number"
+            class="qty"
+            value="1"
+            id="qty_cs"
+            min="0"
+            readonly=""
+            disabled
+          />
+        </div>
+        <div class="col-5">
+          <input class="price" type="number" value="0" id="price_cs" min="0" />
         </div>
       </div>
       <div class="row my-4">
-        <div class="col-7 text-right total">Tổng</div>
+        <div class="col-7 text-right total" id="total_text">Tổng:</div>
         <div class="col-4 total-val">
           <span id="total_value">0</span>
         </div>
       </div>
       <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
       <script id="rendered-js">
+        function Rerender(lang) {
+          let langTitle = {
+            title: {
+              en: "Calculating Resources Evony",
+              vi: "Tính Tài Nguyên Evony",
+            },
+            rssOption: {
+              en: {
+                optionLUONGTHUC: "Food",
+                optionGO: "Wood",
+                optionDA: "Stone",
+                optionQUANG: "Ore",
+              },
+              vi: {
+                optionLUONGTHUC: "Lương Thực",
+                optionGO: "Gỗ",
+                optionDA: "Đá",
+                optionQUANG: "Quặng",
+              },
+            },
+            buttonCLR: {
+              en: "Clear",
+              vi: "Xoá",
+            },
+            typeItem: {
+              en: {
+                Item_Type: "Item Type",
+                Quantity: "Quantity",
+                Total: "Total",
+              },
+              vi: {
+                Item_Type: "Loại Item",
+                Quantity: "Số Lượng",
+                Total: "Tổng",
+              },
+            },
+            cs: {
+              en: "Available",
+              vi: "Có sẵn",
+            },
+            total: {
+              en: "Total:",
+              vi: "Tổng:",
+            },
+          };
+          document.title = langTitle.title[lang];
+          var selectElement = document.getElementById("type_rss");
+
+          for (var i = 0; i < selectElement.options.length; i++) {
+            var optionValue = selectElement.options[i].value;
+            selectElement.options[i].text =
+              langTitle.rssOption[lang]["option" + optionValue.toUpperCase()];
+          }
+
+          var buttonRSSCLR = document.getElementById("RSS_CLR");
+          buttonRSSCLR.textContent = langTitle.buttonCLR[lang];
+
+          document.getElementById("Item_Type").textContent =
+            langTitle.typeItem[lang].Item_Type;
+
+          document.getElementById("Quantity").textContent =
+            langTitle.typeItem[lang].Quantity;
+
+          document.getElementById("Total").textContent =
+            langTitle.typeItem[lang].Total;
+
+          document.getElementById("cs_text").textContent = langTitle.cs[lang];
+
+          document.getElementById("total_text").textContent =
+            langTitle.total[lang];
+        }
+
+        $(function () {
+          let Lang = localStorage.getItem("Lang") || "vi";
+          $("#type_lang").val(Lang);
+
+          Rerender(Lang);
+        });
+
         var data = {
           luongthuc: { total: 0, item_price: {} },
           go: { total: 0, item_price: {} },
@@ -179,26 +350,39 @@
 
         function calculateTotal() {
           let item_price = {};
+
           item_price.item_1k = $("#qty_1k").val() * unit_price.item_1k;
           $("#price_1k").val(numberWithCommas(item_price.item_1k));
+
           item_price.item_5k = $("#qty_5k").val() * unit_price.item_5k;
           $("#price_5k").val(numberWithCommas(item_price.item_5k));
+
           item_price.item_10k = $("#qty_10k").val() * unit_price.item_10k;
           $("#price_10k").val(numberWithCommas(item_price.item_10k));
+
           item_price.item_50k = $("#qty_50k").val() * unit_price.item_50k;
           $("#price_50k").val(numberWithCommas(item_price.item_50k));
+
           item_price.item_100k = $("#qty_100k").val() * unit_price.item_100k;
           $("#price_100k").val(numberWithCommas(item_price.item_100k));
+
           item_price.item_500k = $("#qty_500k").val() * unit_price.item_500k;
           $("#price_500k").val(numberWithCommas(item_price.item_500k));
+
           item_price.item_1m = $("#qty_1m").val() * unit_price.item_1m;
           $("#price_1m").val(numberWithCommas(item_price.item_1m));
+
           item_price.item_5m = $("#qty_5m").val() * unit_price.item_5m;
           $("#price_5m").val(numberWithCommas(item_price.item_5m));
+
           item_price.item_20m = $("#qty_20m").val() * unit_price.item_20m;
           $("#price_20m").val(numberWithCommas(item_price.item_20m));
+
           item_price.item_50m = $("#qty_50m").val() * unit_price.item_50m;
           $("#price_50m").val(numberWithCommas(item_price.item_50m));
+
+          item_price.item_cs = $("#qty_cs").val() * $("#price_cs").val();
+
           let total =
             item_price.item_1k +
             item_price.item_5k +
@@ -209,11 +393,15 @@
             item_price.item_1m +
             item_price.item_5m +
             item_price.item_20m +
-            item_price.item_50m;
+            item_price.item_50m +
+            item_price.item_cs;
+
           let sel = document.getElementById("type_rss");
+
           $("#total_value").text(
             numberWithCommas(total) + " " + sel.options[sel.selectedIndex].text
           );
+
           data[$("#type_rss").val()].total = total;
           data[$("#type_rss").val()].item_price = item_price;
           localStorage.setItem("Data", JSON.stringify(data));
@@ -223,28 +411,65 @@
           $(".qty").on("change keyup", calculateTotal);
         });
 
-        function Clear() {
+        $(function () {
+          $(".price").on("change keyup", calculateTotal);
+        });
+
+        function Clear(remove = true) {
+          let item_price = {};
+
           $("#qty_1k").val(0);
           $("#price_1k").val(0);
+          item_price.item_1k = 0;
+
           $("#qty_5k").val(0);
           $("#price_5k").val(0);
+          item_price.item_5k = 0;
+
           $("#qty_10k").val(0);
           $("#price_10k").val(0);
+          item_price.item_10k = 0;
+
           $("#qty_50k").val(0);
           $("#price_50k").val(0);
+          item_price.item_50k = 0;
+
           $("#qty_100k").val(0);
           $("#price_100k").val(0);
+          item_price.item_100k = 0;
+
           $("#qty_500k").val(0);
           $("#price_500k").val(0);
+          item_price.item_500k = 0;
+
           $("#qty_1m").val(0);
           $("#price_1m").val(0);
+          item_price.item_1m = 0;
+
           $("#qty_5m").val(0);
           $("#price_5m").val(0);
+          item_price.item_5m = 0;
+
           $("#qty_20m").val(0);
           $("#price_20m").val(0);
+          item_price.item_20m = 0;
+
           $("#qty_50m").val(0);
           $("#price_50m").val(0);
-          $("#total_value").text(0);
+          item_price.item_50m = 0;
+
+          $("#qty_cs").val(1);
+          $("#price_cs").val(0);
+          item_price.item_cs = 0;
+
+          let sel = document.getElementById("type_rss");
+          $("#total_value").text("0 " + sel.options[sel.selectedIndex].text);
+
+          if (remove) {
+            data[$("#type_rss").val()].total = 0;
+            data[$("#type_rss").val()].item_price = item_price;
+            localStorage.setItem("Data", JSON.stringify(data));
+          }
         }
 
         function LoadOldData() {
@@ -283,7 +508,10 @@
 
             $("#qty_50m").val(item_price.item_50m / unit_price.item_50m);
             $("#price_5.m").val(numberWithCommas(item_price.item_50m));
-            let sel = document.getElementById("type_rss");
+
+            $("#qty_cs").val(1);
+            $("#price_cs").val(item_price.item_cs);
+
             $("#total_value").text(
               numberWithCommas(total) +
                 " " +
@@ -293,7 +521,7 @@
         }
 
         $("#type_rss").on("change", function (e) {
-          Clear();
+          Clear(false);
           var optionSelected = $("option:selected", this);
           var valueSelected = this.value;
           LoadOldData();
