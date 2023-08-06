@@ -1,7 +1,7 @@
 <html>
   <head>
     <meta charset="UTF-8" />
-    <title>Tính RSS, TT Evony</title>
+    <title>Tính Tài Nguyên, Tăng Tốc Evony</title>
     <link
       rel="icon"
       type="image/png"
@@ -254,10 +254,17 @@
           display: block;
         }
       }
+      #type_lang:focus {
+        outline: 0;
+      }
     </style>
   </head>
   <body>
     <div class="tabs">
+      <select name="type_lang" id="type_lang">
+        <option value="vi">Tiếng Việt</option>
+        <option value="en">Tiếng Anh</option>
+      </select>
       <input type="radio" id="tab1" name="tab-control" checked="" />
       <input type="radio" id="tab2" name="tab-control" />
       <input type="radio" id="tab3" name="tab-control" />
@@ -305,6 +312,7 @@
         <section>
           <h2>RSS</h2>
           <iframe
+            id="RSS"
             src="rss.html"
             title="RSS"
             style="width: 100%; height: 100%; border: none"
@@ -313,12 +321,51 @@
         <section>
           <h2>TT</h2>
           <iframe
+            id="TT"
             src="tt.html"
-            title="RSS"
+            title="TT"
             style="width: 100%; height: 100%; border: none"
           ></iframe>
         </section>
       </div>
     </div>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+    <script>
+      function Rerender(lang) {
+        let langTitle = {
+          title: {
+            en: "Calculation Resource, Acceleration Evony",
+            vi: "Tính Tài Nguyên, Tăng Tốc Evony",
+          },
+          langOption: {
+            en: { optionVI: "Vietnamese", optionEN: "English" },
+            vi: { optionVI: "Tiếng Việt", optionEN: "Tiếng Anh" },
+          },
+        };
+        document.title = langTitle.title[lang];
+        var selectElement = document.getElementById("type_lang");
+
+        for (var i = 0; i < selectElement.options.length; i++) {
+          var optionValue = selectElement.options[i].value;
+          selectElement.options[i].text =
+            langTitle.langOption[lang]["option" + optionValue.toUpperCase()];
+        }
+      }
+
+      $(function () {
+        let Lang = localStorage.getItem("Lang") || "vi";
+        $("#type_lang").val(Lang);
+        Rerender(Lang);
+      });
+
+      $("#type_lang").on("change", function (e) {
+        var optionSelected = $("option:selected", this);
+        var valueSelected = this.value;
+        localStorage.setItem("Lang", valueSelected);
+        document.getElementById("RSS").contentWindow.location.reload();
+        document.getElementById("TT").contentWindow.location.reload();
+        Rerender(valueSelected);
+      });
+    </script>
   </body>
 </html>
