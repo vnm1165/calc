@@ -62,127 +62,419 @@
           Xóa
         </button>
       </div>
+      <br />
       <div class="row">
-        <div class="col-3 row-heading" id="Item_Type">Loại Item</div>
-        <div class="col-3 row-heading" id="Quantity">Số Lượng</div>
-        <div class="col-5 row-heading" id="Total">Tổng</div>
+        <div class="col-2 row-heading" id="Item_Type">Loại Item</div>
+        <div class="col-2 row-heading" id="Quantity">Số Lượng</div>
+        <div class="col-4 row-heading" id="Total">Tổng</div>
+        <div class="col-4 row-heading" id="Total-with-comma">
+          Tổng với dấu phẩy
+        </div>
       </div>
       <div class="row">
-        <div class="col-3" id="5_Phut">5 Phút</div>
-        <div class="col-3">
-          <input type="number" value="0" class="qty" id="qty_5p" min="0" />
+        <div class="col-2" id="5_Phut">5 Phút</div>
+        <div class="col-2">
+          <input
+            type="number"
+            value="0"
+            class="qty"
+            id="qty_5p"
+            min="0"
+            oninput="cleanInput(this)"
+          />
         </div>
-        <div class="col-5">
-          <input type="text" readonly="" value="0" id="price_5p" disabled />
+        <div class="col-4">
+          <input
+            type="text"
+            readonly=""
+            value="0"
+            id="price_5p"
+            disabled
+            oninput="cleanInput(this)"
+          />
+        </div>
+        <div class="col-4">
+          <input
+            type="text"
+            readonly=""
+            value="0"
+            id="price_5p_with_comma"
+            disabled
+            oninput="cleanInput(this)"
+          />
         </div>
       </div>
       <div class="row my-3">
-        <div class="col-3" id="10_Phut">10 Phút</div>
-        <div class="col-3">
-          <input type="number" value="0" class="qty" id="qty_10p" min="0" />
+        <div class="col-2" id="10_Phut">10 Phút</div>
+        <div class="col-2">
+          <input
+            type="number"
+            value="0"
+            class="qty"
+            id="qty_10p"
+            min="0"
+            oninput="cleanInput(this)"
+          />
         </div>
-        <div class="col-5">
-          <input type="text" readonly="" value="0" id="price_10p" disabled />
+        <div class="col-4">
+          <input
+            type="text"
+            readonly=""
+            value="0"
+            id="price_10p"
+            disabled
+            oninput="cleanInput(this)"
+          />
         </div>
-      </div>
-
-      <div class="row my-3">
-        <div class="col-3" id="15_Phut">15 Phút</div>
-        <div class="col-3">
-          <input type="number" value="0" class="qty" id="qty_15p" min="0" />
-        </div>
-        <div class="col-5">
-          <input type="text" readonly="" value="0" id="price_15p" disabled />
-        </div>
-      </div>
-
-      <div class="row my-3">
-        <div class="col-3" id="30_Phut">30 Phút</div>
-        <div class="col-3">
-          <input type="number" value="0" class="qty" id="qty_30p" min="0" />
-        </div>
-        <div class="col-5">
-          <input type="text" readonly="" value="0" id="price_30p" disabled />
-        </div>
-      </div>
-
-      <div class="row my-3">
-        <div class="col-3" id="60_Phut">60 Phút</div>
-        <div class="col-3">
-          <input type="number" value="0" class="qty" id="qty_60p" min="0" />
-        </div>
-        <div class="col-5">
-          <input type="text" readonly="" value="0" id="price_60p" disabled />
-        </div>
-      </div>
-
-      <div class="row my-3">
-        <div class="col-3" id="3_Gio">3 Giờ</div>
-        <div class="col-3">
-          <input type="number" value="0" class="qty" id="qty_3g" min="0" />
-        </div>
-        <div class="col-5">
-          <input type="text" readonly="" value="0" id="price_3g" disabled />
-        </div>
-      </div>
-
-      <div class="row my-3">
-        <div class="col-3" id="8_Gio">8 Giờ</div>
-        <div class="col-3">
-          <input type="number" value="0" class="qty" id="qty_8g" min="0" />
-        </div>
-        <div class="col-5">
-          <input type="text" readonly="" value="0" id="price_8g" disabled />
+        <div class="col-4">
+          <input
+            type="text"
+            readonly=""
+            value="0"
+            id="price_10p_with_comma"
+            disabled
+            oninput="cleanInput(this)"
+          />
         </div>
       </div>
 
       <div class="row my-3">
-        <div class="col-3" id="12_Gio">12 Giờ</div>
-        <div class="col-3">
-          <input type="number" value="0" class="qty" id="qty_12g" min="0" />
+        <div class="col-2" id="15_Phut">15 Phút</div>
+        <div class="col-2">
+          <input
+            type="number"
+            value="0"
+            class="qty"
+            id="qty_15p"
+            min="0"
+            oninput="cleanInput(this)"
+          />
         </div>
-        <div class="col-5">
-          <input type="text" readonly="" value="0" id="price_12g" disabled />
+        <div class="col-4">
+          <input
+            type="text"
+            readonly=""
+            value="0"
+            id="price_15p"
+            disabled
+            oninput="cleanInput(this)"
+          />
         </div>
-      </div>
-
-      <div class="row my-3">
-        <div class="col-3" id="24_Gio">24 Giờ</div>
-        <div class="col-3">
-          <input type="number" value="0" class="qty" id="qty_24g" min="0" />
-        </div>
-        <div class="col-5">
-          <input type="text" readonly="" value="0" id="price_24g" disabled />
-        </div>
-      </div>
-
-      <div class="row my-3">
-        <div class="col-3" id="3_Ngay">3 Ngày</div>
-        <div class="col-3">
-          <input type="number" value="0" class="qty" id="qty_3d" min="0" />
-        </div>
-        <div class="col-5">
-          <input type="text" readonly="" value="0" id="price_3d" disabled />
-        </div>
-      </div>
-
-      <div class="row my-3">
-        <div class="col-3" id="7_Ngay">7 Ngày</div>
-        <div class="col-3">
-          <input type="number" value="0" class="qty" id="qty_7d" min="0" />
-        </div>
-        <div class="col-5">
-          <input type="text" readonly="" value="0" id="price_7d" disabled />
+        <div class="col-4">
+          <input
+            type="text"
+            readonly=""
+            value="0"
+            id="price_15p_with_comma"
+            disabled
+            oninput="cleanInput(this)"
+          />
         </div>
       </div>
 
       <div class="row my-3">
-        <div class="col-3" id="30_Ngay">30 Ngày</div>
-        <div class="col-3">
-          <input type="number" value="0" class="qty" id="qty_30d" min="0" />
+        <div class="col-2" id="30_Phut">30 Phút</div>
+        <div class="col-2">
+          <input
+            type="number"
+            value="0"
+            class="qty"
+            id="qty_30p"
+            min="0"
+            oninput="cleanInput(this)"
+          />
         </div>
-        <div class="col-5">
-          <input type="text" readonly="" value="0" id="price_30d" disabled />
+        <div class="col-4">
+          <input
+            type="text"
+            readonly=""
+            value="0"
+            id="price_30p"
+            disabled
+            oninput="cleanInput(this)"
+          />
+        </div>
+        <div class="col-4">
+          <input
+            type="text"
+            readonly=""
+            value="0"
+            id="price_30p_with_comma"
+            disabled
+            oninput="cleanInput(this)"
+          />
+        </div>
+      </div>
+
+      <div class="row my-3">
+        <div class="col-2" id="60_Phut">60 Phút</div>
+        <div class="col-2">
+          <input
+            type="number"
+            value="0"
+            class="qty"
+            id="qty_60p"
+            min="0"
+            oninput="cleanInput(this)"
+          />
+        </div>
+        <div class="col-4">
+          <input
+            type="text"
+            readonly=""
+            value="0"
+            id="price_60p"
+            disabled
+            oninput="cleanInput(this)"
+          />
+        </div>
+        <div class="col-4">
+          <input
+            type="text"
+            readonly=""
+            value="0"
+            id="price_60p_with_comma"
+            disabled
+            oninput="cleanInput(this)"
+          />
+        </div>
+      </div>
+
+      <div class="row my-3">
+        <div class="col-2" id="3_Gio">3 Giờ</div>
+        <div class="col-2">
+          <input
+            type="number"
+            value="0"
+            class="qty"
+            id="qty_3g"
+            min="0"
+            oninput="cleanInput(this)"
+          />
+        </div>
+        <div class="col-4">
+          <input
+            type="text"
+            readonly=""
+            value="0"
+            id="price_3g"
+            disabled
+            oninput="cleanInput(this)"
+          />
+        </div>
+        <div class="col-4">
+          <input
+            type="text"
+            readonly=""
+            value="0"
+            id="price_3g_with_comma"
+            disabled
+            oninput="cleanInput(this)"
+          />
+        </div>
+      </div>
+
+      <div class="row my-3">
+        <div class="col-2" id="8_Gio">8 Giờ</div>
+        <div class="col-2">
+          <input
+            type="number"
+            value="0"
+            class="qty"
+            id="qty_8g"
+            min="0"
+            oninput="cleanInput(this)"
+          />
+        </div>
+        <div class="col-4">
+          <input
+            type="text"
+            readonly=""
+            value="0"
+            id="price_8g"
+            disabled
+            oninput="cleanInput(this)"
+          />
+        </div>
+        <div class="col-4">
+          <input
+            type="text"
+            readonly=""
+            value="0"
+            id="price_8g_with_comma"
+            disabled
+            oninput="cleanInput(this)"
+          />
+        </div>
+      </div>
+
+      <div class="row my-3">
+        <div class="col-2" id="12_Gio">12 Giờ</div>
+        <div class="col-2">
+          <input
+            type="number"
+            value="0"
+            class="qty"
+            id="qty_12g"
+            min="0"
+            oninput="cleanInput(this)"
+          />
+        </div>
+        <div class="col-4">
+          <input
+            type="text"
+            readonly=""
+            value="0"
+            id="price_12g"
+            disabled
+            oninput="cleanInput(this)"
+          />
+        </div>
+        <div class="col-4">
+          <input
+            type="text"
+            readonly=""
+            value="0"
+            id="price_12g_with_comma"
+            disabled
+            oninput="cleanInput(this)"
+          />
+        </div>
+      </div>
+
+      <div class="row my-3">
+        <div class="col-2" id="24_Gio">24 Giờ</div>
+        <div class="col-2">
+          <input
+            type="number"
+            value="0"
+            class="qty"
+            id="qty_24g"
+            min="0"
+            oninput="cleanInput(this)"
+          />
+        </div>
+        <div class="col-4">
+          <input
+            type="text"
+            readonly=""
+            value="0"
+            id="price_24g"
+            disabled
+            oninput="cleanInput(this)"
+          />
+        </div>
+        <div class="col-4">
+          <input
+            type="text"
+            readonly=""
+            value="0"
+            id="price_24g_with_comma"
+            disabled
+            oninput="cleanInput(this)"
+          />
+        </div>
+      </div>
+
+      <div class="row my-3">
+        <div class="col-2" id="3_Ngay">3 Ngày</div>
+        <div class="col-2">
+          <input
+            type="number"
+            value="0"
+            class="qty"
+            id="qty_3d"
+            min="0"
+            oninput="cleanInput(this)"
+          />
+        </div>
+        <div class="col-4">
+          <input
+            type="text"
+            readonly=""
+            value="0"
+            id="price_3d"
+            disabled
+            oninput="cleanInput(this)"
+          />
+        </div>
+        <div class="col-4">
+          <input
+            type="text"
+            readonly=""
+            value="0"
+            id="price_3d_with_comma"
+            disabled
+            oninput="cleanInput(this)"
+          />
+        </div>
+      </div>
+
+      <div class="row my-3">
+        <div class="col-2" id="7_Ngay">7 Ngày</div>
+        <div class="col-2">
+          <input
+            type="number"
+            value="0"
+            class="qty"
+            id="qty_7d"
+            min="0"
+            oninput="cleanInput(this)"
+          />
+        </div>
+        <div class="col-4">
+          <input
+            type="text"
+            readonly=""
+            value="0"
+            id="price_7d"
+            disabled
+            oninput="cleanInput(this)"
+          />
+        </div>
+        <div class="col-4">
+          <input
+            type="text"
+            readonly=""
+            value="0"
+            id="price_7d_with_comma"
+            disabled
+            oninput="cleanInput(this)"
+          />
+        </div>
+      </div>
+
+      <div class="row my-3">
+        <div class="col-2" id="30_Ngay">30 Ngày</div>
+        <div class="col-2">
+          <input
+            type="number"
+            value="0"
+            class="qty"
+            id="qty_30d"
+            min="0"
+            oninput="cleanInput(this)"
+          />
+        </div>
+        <div class="col-4">
+          <input
+            type="text"
+            readonly=""
+            value="0"
+            id="price_30d"
+            disabled
+            oninput="cleanInput(this)"
+          />
+        </div>
+        <div class="col-4">
+          <input
+            type="text"
+            readonly=""
+            value="0"
+            id="price_30d_with_comma"
+            disabled
+            oninput="cleanInput(this)"
+          />
         </div>
       </div>
 
@@ -193,459 +485,7 @@
         </div>
       </div>
       <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
-      <script id="rendered-js">
-        function Rerender(lang) {
-          let langTitle = {
-            title: {
-              en: "Calculation Acceleration Evony",
-              vi: "Tính Tăng Tốc Evony",
-            },
-            ttOption: {
-              en: {
-                optionTHUONG: "Normal Speed ​​Up",
-                optionQUAN: "Military Training Speed ​​Up",
-                optionNGHIENCUU: "Research Speed ​​Up",
-                optionBAY: "Trap Build Speed ​​Up",
-                optionCHETAC: "Crafting Speed ​​Up ",
-                optionXAYDUNG: "Construction Speed ​​Up",
-                optionMAU: "Heal Speed ​​Up",
-              },
-              vi: {
-                optionTHUONG: "Tăng Tốc Thường",
-                optionQUAN: "Tăng Tốc Luyện Quân",
-                optionNGHIENCUU: "Tăng Tốc Nghiên Cứu",
-                optionBAY: "Tăng Tốc Xây Bẫy",
-                optionCHETAC: "Tăng Tốc Chế Tác",
-                optionXAYDUNG: "Tăng Tốc Xây Dựng",
-                optionMAU: "Tăng Tốc Hồi Máu",
-              },
-            },
-            unitOption: {
-              en: {
-                optionPHUT: "Minutes",
-                optionGIO: "Hours",
-                optionNGAY: "Days",
-              },
-              vi: {
-                optionPHUT: "Phút",
-                optionGIO: "Giờ",
-                optionNGAY: "Ngày",
-              },
-            },
-            buttonCLR: {
-              en: "Clear",
-              vi: "Xoá",
-            },
-            typeItem: {
-              en: {
-                Item_Type: "Item Type",
-                Quantity: "Quantity",
-                Total: "Total",
-              },
-              vi: {
-                Item_Type: "Loại Item",
-                Quantity: "Số Lượng",
-                Total: "Tổng",
-              },
-            },
-            total: {
-              en: "Total:",
-              vi: "Tổng:",
-            },
-            item: {
-              en: {
-                "5_Phut": "5 Minutes",
-                "10_Phut": "10 Minutes",
-                "15_Phut": "15 Minutes",
-                "30_Phut": "30 Minutes",
-                "60_Phut": "60 Minutes",
-                "3_Gio": "3 Hours",
-                "8_Gio": "8 Hours",
-                "12_Gio": "12 Hours",
-                "24_Gio": "24 Hours",
-                "3_Ngay": "3 Days",
-                "7_Ngay": "7 Days",
-                "30_Ngay": "30 Days",
-              },
-              vi: {
-                "5_Phut": "5 Phút",
-                "10_Phut": "10 Phút",
-                "15_Phut": "15 Phút",
-                "30_Phut": "30 Phút",
-                "60_Phut": "60 Phút",
-                "3_Gio": "3 Giờ",
-                "8_Gio": "8 Giờ",
-                "12_Gio": "12 Giờ",
-                "24_Gio": "24 Giờ",
-                "3_Ngay": "3 Ngày",
-                "7_Ngay": "7 Ngày",
-                "30_Ngay": "30 Ngày",
-              },
-            },
-          };
-
-          document.title = langTitle.title[lang];
-
-          var selectElement = document.getElementById("type_tt");
-
-          for (var i = 0; i < selectElement.options.length; i++) {
-            var optionValue = selectElement.options[i].value;
-            selectElement.options[i].text =
-              langTitle.ttOption[lang]["option" + optionValue.toUpperCase()];
-          }
-
-          var selectElement2 = document.getElementById("type_unit");
-
-          for (var i = 0; i < selectElement2.options.length; i++) {
-            var optionValue = selectElement2.options[i].value;
-            selectElement2.options[i].text =
-              langTitle.unitOption[lang]["option" + optionValue.toUpperCase()];
-          }
-
-          var buttoTTCLR = document.getElementById("TT_CLR");
-          buttoTTCLR.textContent = langTitle.buttonCLR[lang];
-
-          document.getElementById("Item_Type").textContent =
-            langTitle.typeItem[lang].Item_Type;
-
-          document.getElementById("Quantity").textContent =
-            langTitle.typeItem[lang].Quantity;
-
-          document.getElementById("Total").textContent =
-            langTitle.typeItem[lang].Total;
-
-          document.getElementById("total_text").textContent =
-            langTitle.total[lang];
-
-          document.getElementById("5_Phut").textContent =
-            langTitle.item[lang]["5_Phut"];
-
-          document.getElementById("10_Phut").textContent =
-            langTitle.item[lang]["10_Phut"];
-
-          document.getElementById("15_Phut").textContent =
-            langTitle.item[lang]["15_Phut"];
-
-          document.getElementById("30_Phut").textContent =
-            langTitle.item[lang]["30_Phut"];
-
-          document.getElementById("60_Phut").textContent =
-            langTitle.item[lang]["60_Phut"];
-
-          document.getElementById("3_Gio").textContent =
-            langTitle.item[lang]["3_Gio"];
-
-          document.getElementById("8_Gio").textContent =
-            langTitle.item[lang]["8_Gio"];
-
-          document.getElementById("12_Gio").textContent =
-            langTitle.item[lang]["12_Gio"];
-
-          document.getElementById("24_Gio").textContent =
-            langTitle.item[lang]["24_Gio"];
-
-          document.getElementById("3_Ngay").textContent =
-            langTitle.item[lang]["3_Ngay"];
-
-          document.getElementById("7_Ngay").textContent =
-            langTitle.item[lang]["7_Ngay"];
-
-          document.getElementById("30_Ngay").textContent =
-            langTitle.item[lang]["30_Ngay"];
-        }
-
-        $(function () {
-          let Lang = localStorage.getItem("Lang") || "vi";
-          $("#type_lang").val(Lang);
-
-          Rerender(Lang);
-        });
-
-        var data = {
-          thuong: { total: 0, item_price: {} },
-          quan: { total: 0, item_price: {} },
-          nghiencuu: { total: 0, item_price: {} },
-          chetac: { total: 0, item_price: {} },
-          xaydung: { total: 0, item_price: {} },
-          bay: { total: 0, item_price: {} },
-          mau: { total: 0, item_price: {} },
-        };
-
-        const OneHourToMinute = 60;
-        const OneDayToHour = 24;
-
-        var unit_price = {
-          item_5p: 5,
-          item_10p: 10,
-          item_15p: 15,
-          item_30p: 30,
-          item_60p: 60,
-          item_3g: 3 * OneHourToMinute,
-          item_8g: 8 * OneHourToMinute,
-          item_12g: 12 * OneHourToMinute,
-          item_24g: 24 * OneHourToMinute,
-          item_3d: 3 * OneDayToHour * OneHourToMinute,
-          item_7d: 7 * OneDayToHour * OneHourToMinute,
-          item_30d: 30 * OneDayToHour * OneHourToMinute,
-        };
-
-        function RenderWithUnit() {
-          let sel_unit = document.getElementById("type_unit");
-          return sel_unit.options[sel_unit.selectedIndex].text;
-        }
-
-        function numberWithCommas(x) {
-          return x.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",");
-        }
-
-        function ConvertMinutesToHoursWithFloat(minutes) {
-          let hours = minutes / OneHourToMinute;
-          return hours.toFixed(2);
-        }
-
-        function ConvertMinutesToDaysWithFloat(minutes) {
-          let days = minutes / (OneDayToHour * OneHourToMinute);
-          return days.toFixed(2);
-        }
-
-        function numberWithCommasWithUnit(x) {
-          let unit_val = RenderWithUnit();
-          if (unit_val == "Giờ") {
-            return (
-              numberWithCommas(ConvertMinutesToHoursWithFloat(x)) +
-              " " +
-              unit_val
-            );
-          } else if (unit_val == "Ngày") {
-            return (
-              numberWithCommas(ConvertMinutesToDaysWithFloat(x)) +
-              " " +
-              unit_val
-            );
-          }
-
-          return numberWithCommas(x) + " " + unit_val;
-        }
-
-        function calculateTotal() {
-          let item_price = {};
-          item_price.item_5p = $("#qty_5p").val() * unit_price.item_5p;
-          $("#price_5p").val(numberWithCommasWithUnit(item_price.item_5p));
-          item_price.item_10p = $("#qty_10p").val() * unit_price.item_10p;
-          $("#price_10p").val(numberWithCommasWithUnit(item_price.item_10p));
-          item_price.item_15p = $("#qty_15p").val() * unit_price.item_15p;
-          $("#price_15p").val(numberWithCommasWithUnit(item_price.item_15p));
-          item_price.item_30p = $("#qty_30p").val() * unit_price.item_30p;
-          $("#price_30p").val(numberWithCommasWithUnit(item_price.item_30p));
-          item_price.item_60p = $("#qty_60p").val() * unit_price.item_60p;
-          $("#price_60p").val(numberWithCommasWithUnit(item_price.item_60p));
-          item_price.item_3g = $("#qty_3g").val() * unit_price.item_3g;
-          $("#price_3g").val(numberWithCommasWithUnit(item_price.item_3g));
-          item_price.item_8g = $("#qty_8g").val() * unit_price.item_8g;
-          $("#price_8g").val(numberWithCommasWithUnit(item_price.item_8g));
-          item_price.item_12g = $("#qty_12g").val() * unit_price.item_12g;
-          $("#price_12g").val(numberWithCommasWithUnit(item_price.item_12g));
-          item_price.item_24g = $("#qty_24g").val() * unit_price.item_24g;
-          $("#price_24g").val(numberWithCommasWithUnit(item_price.item_24g));
-          item_price.item_3d = $("#qty_3d").val() * unit_price.item_3d;
-          $("#price_3d").val(numberWithCommasWithUnit(item_price.item_3d));
-          item_price.item_7d = $("#qty_7d").val() * unit_price.item_7d;
-          $("#price_7d").val(numberWithCommasWithUnit(item_price.item_7d));
-          item_price.item_30d = $("#qty_30d").val() * unit_price.item_30d;
-          $("#price_30d").val(numberWithCommasWithUnit(item_price.item_30d));
-
-          let total =
-            item_price.item_5p +
-            item_price.item_10p +
-            item_price.item_15p +
-            item_price.item_30p +
-            item_price.item_60p +
-            item_price.item_3g +
-            item_price.item_8g +
-            item_price.item_12g +
-            item_price.item_24g +
-            item_price.item_3d +
-            item_price.item_7d +
-            item_price.item_30d;
-          let sel = document.getElementById("type_tt");
-          $("#total_value").text(
-            numberWithCommasWithUnit(total) +
-              " " +
-              sel.options[sel.selectedIndex].text
-          );
-          data[$("#type_tt").val()].total = total;
-          data[$("#type_tt").val()].item_price = item_price;
-          localStorage.setItem("Data_TT", JSON.stringify(data));
-        }
-
-        $(function () {
-          $(".qty").on("change keyup", calculateTotal);
-        });
-
-        function Clear(remove = true) {
-          let item_price = {};
-          $("#qty_5p").val(0);
-          $("#price_5p").val(0);
-          item_price.item_5p = 0;
-
-          $("#qty_10p").val(0);
-          $("#price_10p").val(0);
-          item_price.item_10p = 0;
-
-          $("#qty_15p").val(0);
-          $("#price_15p").val(0);
-          item_price.item_15p = 0;
-
-          $("#qty_30p").val(0);
-          $("#price_30p").val(0);
-          item_price.item_30p = 0;
-
-          $("#qty_60p").val(0);
-          $("#price_60p").val(0);
-          item_price.item_60p = 0;
-
-          $("#qty_3g").val(0);
-          $("#price_3g").val(0);
-          item_price.item_3g = 0;
-
-          $("#qty_8g").val(0);
-          $("#price_8g").val(0);
-          item_price.item_8g = 0;
-
-          $("#qty_12g").val(0);
-          $("#price_12g").val(0);
-          item_price.item_12g = 0;
-
-          $("#qty_24g").val(0);
-          $("#price_24g").val(0);
-          item_price.item_24g = 0;
-
-          $("#qty_3d").val(0);
-          $("#price_3d").val(0);
-          item_price.item_3d = 0;
-
-          $("#qty_7d").val(0);
-          $("#price_7d").val(0);
-          item_price.item_7d = 0;
-
-          $("#qty_30d").val(0);
-          $("#price_30d").val(0);
-          item_price.item_30d = 0;
-
-          let sel = document.getElementById("type_tt");
-          $("#total_value").text(
-            "0 " + " " + sel.options[sel.selectedIndex].text
-          );
-
-          if (remove) {
-            data[$("#type_tt").val()].total = 0;
-            data[$("#type_tt").val()].item_price = item_price;
-            localStorage.setItem("Data_TT", JSON.stringify(data));
-          }
-        }
-
-        function LoadOldData() {
-          let sel = document.getElementById("type_tt");
-          $("#total_value").text(
-            numberWithCommasWithUnit(0) +
-              " " +
-              sel.options[sel.selectedIndex].text
-          );
-          let old_data = data[$("#type_tt").val()];
-          let total = old_data.total;
-          let item_price = old_data.item_price;
-          if (total > 0) {
-            $("#qty_5p").val(item_price.item_5p / unit_price.item_5p);
-            $("#price_5p").val(numberWithCommasWithUnit(item_price.item_5p));
-
-            $("#qty_10p").val(item_price.item_10p / unit_price.item_10p);
-            $("#price_10p").val(numberWithCommasWithUnit(item_price.item_10p));
-
-            $("#qty_15p").val(item_price.item_15p / unit_price.item_15p);
-            $("#price_15p").val(numberWithCommasWithUnit(item_price.item_15p));
-
-            $("#qty_30p").val(item_price.item_30p / unit_price.item_30p);
-            $("#price_30p").val(numberWithCommasWithUnit(item_price.item_30p));
-
-            $("#qty_60p").val(item_price.item_60p / unit_price.item_60p);
-            $("#price_60p").val(numberWithCommasWithUnit(item_price.item_60p));
-
-            $("#qty_3g").val(item_price.item_3g / unit_price.item_3g);
-            $("#price_3g").val(numberWithCommasWithUnit(item_price.item_3g));
-
-            $("#qty_8g").val(item_price.item_8g / unit_price.item_8g);
-            $("#price_8g").val(numberWithCommasWithUnit(item_price.item_8g));
-
-            $("#qty_12g").val(item_price.item_12g / unit_price.item_12g);
-            $("#price_12g").val(numberWithCommasWithUnit(item_price.item_12g));
-
-            $("#qty_24g").val(item_price.item_24g / unit_price.item_24g);
-            $("#price_24g").val(numberWithCommasWithUnit(item_price.item_24g));
-
-            $("#qty_3d").val(item_price.item_3d / unit_price.item_3d);
-            $("#price_3d").val(numberWithCommasWithUnit(item_price.item_3d));
-
-            $("#qty_7d").val(item_price.item_7d / unit_price.item_7d);
-            $("#price_7d").val(numberWithCommasWithUnit(item_price.item_7d));
-
-            $("#qty_30d").val(item_price.item_30d / unit_price.item_30d);
-            $("#price_30d").val(numberWithCommasWithUnit(item_price.item_30d));
-
-            $("#total_value").text(
-              numberWithCommasWithUnit(total) +
-                " " +
-                sel.options[sel.selectedIndex].text
-            );
-          }
-        }
-
-        $("#type_tt").on("change", function (e) {
-          Clear(false);
-          var optionSelected = $("option:selected", this);
-          var valueSelected = this.value;
-          LoadOldData();
-        });
-
-        $("#type_unit").on("change", function (e) {
-          Clear(false);
-          var optionSelected = $("option:selected", this);
-          var valueSelected = this.value;
-          LoadOldData();
-        });
-
-        function sortSelectOptions(selectElement) {
-          var options = $(selectElement + " option");
-
-          options.sort(function (a, b) {
-            if (a.text.toUpperCase() > b.text.toUpperCase()) return 1;
-            else if (a.text.toUpperCase() < b.text.toUpperCase()) return -1;
-            else return 0;
-          });
-
-          $(selectElement).empty().append(options);
-        }
-
-        $(function () {
-          let local_data = JSON.parse(localStorage.getItem("Data_TT"));
-          if (local_data) {
-            data = local_data;
-            LoadOldData();
-          } else {
-            let sel = document.getElementById("type_tt");
-            $("#total_value").text(
-              numberWithCommasWithUnit(0) +
-                " " +
-                sel.options[sel.selectedIndex].text
-            );
-          }
-          sortSelectOptions("#type_tt");
-        });
-
-        function ClearAll() {
-          Clear();
-          localStorage.removeItem("Data_TT");
-        }
-      </script>
+      <script id="tt-rendered-js" src="tt.js"></script>
     </div>
   </body>
 </html>

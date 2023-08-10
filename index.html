@@ -330,42 +330,6 @@
       </div>
     </div>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
-    <script>
-      function Rerender(lang) {
-        let langTitle = {
-          title: {
-            en: "Calculation Resource, Acceleration Evony",
-            vi: "Tính Tài Nguyên, Tăng Tốc Evony",
-          },
-          langOption: {
-            en: { optionVI: "Vietnamese", optionEN: "English" },
-            vi: { optionVI: "Tiếng Việt", optionEN: "Tiếng Anh" },
-          },
-        };
-        document.title = langTitle.title[lang];
-        var selectElement = document.getElementById("type_lang");
-
-        for (var i = 0; i < selectElement.options.length; i++) {
-          var optionValue = selectElement.options[i].value;
-          selectElement.options[i].text =
-            langTitle.langOption[lang]["option" + optionValue.toUpperCase()];
-        }
-      }
-
-      $(function () {
-        let Lang = localStorage.getItem("Lang") || "vi";
-        $("#type_lang").val(Lang);
-        Rerender(Lang);
-      });
-
-      $("#type_lang").on("change", function (e) {
-        var optionSelected = $("option:selected", this);
-        var valueSelected = this.value;
-        localStorage.setItem("Lang", valueSelected);
-        document.getElementById("RSS").contentWindow.location.reload();
-        document.getElementById("TT").contentWindow.location.reload();
-        Rerender(valueSelected);
-      });
-    </script>
+    <script id="index-rendered-js" src="index.js"></script>
   </body>
 </html>
