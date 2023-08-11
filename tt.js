@@ -55,7 +55,11 @@ const langTitle = {
     en: "Total:",
     vi: "Tổng:",
   },
-  totalWithComma: { en: "Total With Comma:", vi: "Tổng với dấu phẩy:" },
+  totalbytext: {
+    en: "Total in words:",
+    vi: "Tổng bằng chữ:",
+  },
+  totalWithComma: { en: "Total With Comma", vi: "Tổng với dấu phẩy" },
   item: {
     en: {
       "5_Phut": "5 Minutes",
@@ -112,6 +116,7 @@ function Rerender(lang) {
   $("#total_text").text(langTitle.total[lang]);
   $("#Total-with-comma").text(langTitle.totalWithComma[lang]);
   $("#Total").text(langTitle.typeItem[lang].Total);
+  $("#totalbytext").text(langTitle.totalbytext[lang]);
 
   Object.keys(langTitle.item[lang]).forEach(function (key) {
     $("#" + key).text(langTitle.item[lang][key]);
@@ -167,15 +172,20 @@ function ConvertMinutesToDaysWithFloat(minutes) {
   return days.toFixed(2);
 }
 
-function numberWithCommasWithUnit(x) {
+function numberConvert(x) {
   let unit_val = RenderWithUnit();
-  if (unit_val == "Giờ") {
-    return numberWithCommas(ConvertMinutesToHoursWithFloat(x)) + " " + unit_val;
-  } else if (unit_val == "Ngày") {
-    return numberWithCommas(ConvertMinutesToDaysWithFloat(x)) + " " + unit_val;
+  if (unit_val === "Giờ" || unit_val === "Hours") {
+    return numberWithCommas(ConvertMinutesToHoursWithFloat(x));
+  } else if (unit_val === "Ngày" || unit_val === "Days") {
+    return numberWithCommas(ConvertMinutesToDaysWithFloat(x));
   }
 
-  return numberWithCommas(x) + " " + unit_val;
+  return numberWithCommas(x);
+}
+
+function numberWithCommasWithUnit(x) {
+  let unit_val = RenderWithUnit();
+  return numberConvert(x) + " " + unit_val;
 }
 function calculateTotal() {
   let item_price = {};
@@ -212,6 +222,20 @@ function calculateTotal() {
     numberWithCommasWithUnit(total) + " " + sel.find(":selected").text()
   );
 
+  let Lang = localStorage.getItem("Lang") || "vi";
+  let unit_val = RenderWithUnit();
+  $("#totalbytext_value").text(
+    (Lang === "vi"
+      ? total === 0
+        ? "Không"
+        : CapitalizeTheFirstLetter(to_vietnamese(numberConvert(total)))
+      : CapitalizeTheFirstLetter(to_english(numberConvert(total)))) +
+      " " +
+      unit_val +
+      " " +
+      sel.find(":selected").text()
+  );
+
   data[sel.val()].total = total;
   data[sel.val()].item_price = item_price;
   localStorage.setItem("Data_TT", JSON.stringify(data));
@@ -220,6 +244,10 @@ function calculateTotal() {
 $(function () {
   $(".qty").on("change keyup", calculateTotal);
 });
+
+function CapitalizeTheFirstLetter(str) {
+  return str.charAt(0).toUpperCase() + str.slice(1);
+}
 
 function Clear(remove = true) {
   const item_price = {};
@@ -245,7 +273,18 @@ function Clear(remove = true) {
   });
 
   let sel = document.getElementById("type_tt");
-  $("#total_value").text("0 " + " " + sel.options[sel.selectedIndex].text);
+  let unit_val = RenderWithUnit();
+  $("#total_value").text(
+    "0 " + unit_val + " " + sel.options[sel.selectedIndex].text
+  );
+  let Lang = localStorage.getItem("Lang") || "vi";
+  $("#totalbytext_value").text(
+    (Lang === "vi" ? "Không" : "Zero") +
+      " " +
+      unit_val +
+      " " +
+      sel.options[sel.selectedIndex].text
+  );
 
   if (remove) {
     data[$("#type_tt").val()].total = 0;
@@ -259,7 +298,12 @@ function LoadOldData() {
   let selectedText = sel.find(":selected").text();
   let totalValue = $("#total_value");
   totalValue.text(numberWithCommasWithUnit(0) + " " + selectedText);
+  let Lang = localStorage.getItem("Lang") || "vi";
 
+  let unit_val = RenderWithUnit();
+  $("#totalbytext_value").text(
+    (Lang === "vi" ? "Không" : "Zero") + " " + unit_val + " " + selectedText
+  );
   let old_data = data[sel.val()];
   let total = old_data.total;
   let item_price = old_data.item_price;
@@ -295,6 +339,18 @@ function LoadOldData() {
     });
 
     totalValue.text(numberWithCommasWithUnit(total) + " " + selectedText);
+    let unit_val = RenderWithUnit();
+    $("#totalbytext_value").text(
+      (Lang === "vi"
+        ? total === 0
+          ? "Không"
+          : CapitalizeTheFirstLetter(to_vietnamese(numberConvert(total)))
+        : CapitalizeTheFirstLetter(to_english(numberConvert(total)))) +
+        " " +
+        unit_val +
+        " " +
+        sel.find(":selected").text()
+    );
   }
 }
 
@@ -325,7 +381,7 @@ $(function () {
   $("#type_lang").val(Lang);
 
   Rerender(Lang);
-
+  calculateTotal();
   let local_data = JSON.parse(localStorage.getItem("Data_TT"));
   if (local_data) {
     data = local_data;
@@ -334,6 +390,19 @@ $(function () {
     let sel = document.getElementById("type_tt");
     $("#total_value").text(
       numberWithCommasWithUnit(0) + " " + sel.options[sel.selectedIndex].text
+    );
+    let Lang = localStorage.getItem("Lang") || "vi";
+    let unit_val = RenderWithUnit();
+    $("#totalbytext_value").text(
+      (Lang === "vi"
+        ? total === 0
+          ? "Không"
+          : CapitalizeTheFirstLetter(to_vietnamese(numberConvert(total)))
+        : CapitalizeTheFirstLetter(to_english(numberConvert(total)))) +
+        " " +
+        unit_val +
+        " " +
+        sel.find(":selected").text()
     );
   }
   sortSelectOptions("#type_tt");

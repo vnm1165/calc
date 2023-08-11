@@ -41,7 +41,11 @@ const langTitle = {
     en: "Total:",
     vi: "Tổng:",
   },
-  totalWithComma: { en: "Total With Comma:", vi: "Tổng với dấu phẩy:" },
+  totalbytext: {
+    en: "Total in words:",
+    vi: "Tổng bằng chữ:",
+  },
+  totalWithComma: { en: "Total With Comma", vi: "Tổng với dấu phẩy" },
 };
 
 var data = {
@@ -84,6 +88,11 @@ function Rerender(lang) {
   $("#cs_text").text(langTitle.cs[lang]);
   $("#total_text").text(langTitle.total[lang]);
   $("#Total-with-comma").text(langTitle.totalWithComma[lang]);
+  $("#totalbytext").text(langTitle.totalbytext[lang]);
+}
+
+function CapitalizeTheFirstLetter(str) {
+  return str.charAt(0).toUpperCase() + str.slice(1);
 }
 
 function numberWithCommas(x, comma_flag = true) {
@@ -116,6 +125,16 @@ function calculateTotal() {
   const selectedOptionText = $("#type_rss option:selected").text();
 
   $("#total_value").text(numberWithCommas(total) + " " + selectedOptionText);
+  let Lang = localStorage.getItem("Lang") || "vi";
+  $("#totalbytext_value").text(
+    (Lang === "vi"
+      ? total === 0
+        ? "Không"
+        : CapitalizeTheFirstLetter(to_vietnamese(total))
+      : CapitalizeTheFirstLetter(to_english(total))) +
+      " " +
+      selectedOptionText
+  );
   data[$("#type_rss").val()].total = total;
   data[$("#type_rss").val()].item_price = item_price;
   localStorage.setItem("Data", JSON.stringify(data));
@@ -152,6 +171,13 @@ $(function () {
   } else {
     const sel = document.getElementById("type_rss");
     $("#total_value").text("0 " + sel.options[sel.selectedIndex].text);
+
+    let Lang = localStorage.getItem("Lang") || "vi";
+    $("#totalbytext_value").text(
+      (Lang === "vi" ? "Không" : "Zero") +
+        " " +
+        sel.options[sel.selectedIndex].text
+    );
   }
 
   sortSelectOptions("#type_rss");
@@ -192,6 +218,13 @@ function Clear(remove = true) {
 function LoadOldData() {
   const sel = document.getElementById("type_rss");
   $("#total_value").text("0 " + sel.options[sel.selectedIndex].text);
+
+  let Lang = localStorage.getItem("Lang") || "vi";
+  $("#totalbytext_value").text(
+    (Lang === "vi" ? "Không" : "Zero") +
+      " " +
+      sel.options[sel.selectedIndex].text
+  );
   const oldData = data[$("#type_rss").val()];
   const total = oldData.total;
   const item_price = oldData.item_price;
@@ -215,6 +248,16 @@ function LoadOldData() {
 
   $("#total_value").text(
     numberWithCommas(total) + " " + sel.options[sel.selectedIndex].text
+  );
+
+  $("#totalbytext_value").text(
+    (Lang === "vi"
+      ? total === 0
+        ? "Không"
+        : CapitalizeTheFirstLetter(to_vietnamese(total))
+      : CapitalizeTheFirstLetter(to_english(total))) +
+      " " +
+      sel.options[sel.selectedIndex].text
   );
 }
 
