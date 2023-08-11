@@ -226,9 +226,7 @@ function calculateTotal() {
   let unit_val = RenderWithUnit();
   $("#totalbytext_value").text(
     (Lang === "vi"
-      ? total === 0
-        ? "Không"
-        : CapitalizeTheFirstLetter(to_vietnamese(numberConvert(total)))
+      ? CapitalizeTheFirstLetter(to_vietnamese(numberConvert(total)))
       : CapitalizeTheFirstLetter(to_english(numberConvert(total)))) +
       " " +
       unit_val +
@@ -275,11 +273,13 @@ function Clear(remove = true) {
   let sel = document.getElementById("type_tt");
   let unit_val = RenderWithUnit();
   $("#total_value").text(
-    "0 " + unit_val + " " + sel.options[sel.selectedIndex].text
+    numberWithCommasWithUnit(0) + sel.options[sel.selectedIndex].text
   );
   let Lang = localStorage.getItem("Lang") || "vi";
   $("#totalbytext_value").text(
-    (Lang === "vi" ? "Không" : "Zero") +
+    (Lang === "vi"
+      ? CapitalizeTheFirstLetter(to_vietnamese(numberConvert(0)))
+      : CapitalizeTheFirstLetter(to_english(numberConvert(0)))) +
       " " +
       unit_val +
       " " +
@@ -302,7 +302,13 @@ function LoadOldData() {
 
   let unit_val = RenderWithUnit();
   $("#totalbytext_value").text(
-    (Lang === "vi" ? "Không" : "Zero") + " " + unit_val + " " + selectedText
+    (Lang === "vi"
+      ? CapitalizeTheFirstLetter(to_vietnamese(numberConvert(0)))
+      : CapitalizeTheFirstLetter(to_english(numberConvert(0)))) +
+      " " +
+      unit_val +
+      " " +
+      selectedText
   );
   let old_data = data[sel.val()];
   let total = old_data.total;
@@ -342,9 +348,7 @@ function LoadOldData() {
     let unit_val = RenderWithUnit();
     $("#totalbytext_value").text(
       (Lang === "vi"
-        ? total === 0
-          ? "Không"
-          : CapitalizeTheFirstLetter(to_vietnamese(numberConvert(total)))
+        ? CapitalizeTheFirstLetter(to_vietnamese(numberConvert(total)))
         : CapitalizeTheFirstLetter(to_english(numberConvert(total)))) +
         " " +
         unit_val +
@@ -394,14 +398,12 @@ $(function () {
     let unit_val = RenderWithUnit();
     $("#totalbytext_value").text(
       (Lang === "vi"
-        ? total === 0
-          ? "Không"
-          : CapitalizeTheFirstLetter(to_vietnamese(numberConvert(total)))
-        : CapitalizeTheFirstLetter(to_english(numberConvert(total)))) +
+        ? CapitalizeTheFirstLetter(to_vietnamese(numberConvert(0)))
+        : CapitalizeTheFirstLetter(to_english(numberConvert(0)))) +
         " " +
         unit_val +
         " " +
-        sel.find(":selected").text()
+        sel.options[sel.selectedIndex].text
     );
   }
   sortSelectOptions("#type_tt");

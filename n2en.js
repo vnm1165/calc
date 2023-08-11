@@ -1,25 +1,5 @@
-function to_english(n, custom_join_character) {
-  var string = n.toString(),
-    units,
-    tens,
-    scales,
-    start,
-    end,
-    chunks,
-    chunksLen,
-    chunk,
-    ints,
-    i,
-    word,
-    words;
-
-  var and = custom_join_character || "and";
-
-  if (parseInt(string) === 0) {
-    return "zero";
-  }
-
-  units = [
+function to_english(n, customJoinCharacter) {
+  const units = [
     "",
     "one",
     "two",
@@ -42,7 +22,7 @@ function to_english(n, custom_join_character) {
     "nineteen",
   ];
 
-  tens = [
+  const tens = [
     "",
     "",
     "twenty",
@@ -55,7 +35,7 @@ function to_english(n, custom_join_character) {
     "ninety",
   ];
 
-  scales = [
+  const scales = [
     "",
     "thousand",
     "million",
@@ -81,39 +61,41 @@ function to_english(n, custom_join_character) {
     "centillion",
   ];
 
-  start = string.length;
-  chunks = [];
+  const and = customJoinCharacter || "and";
+
+  if (parseInt(n) === 0) {
+    return "zero";
+  }
+
+  const chunks = [];
+  let start = n.toString().length;
   while (start > 0) {
-    end = start;
-    chunks.push(string.slice((start = Math.max(0, start - 3)), end));
+    const end = start;
+    chunks.push(n.toString().slice((start = Math.max(0, start - 3)), end));
   }
 
-  chunksLen = chunks.length;
-  if (chunksLen > scales.length) {
-    return "";
-  }
-
-  words = [];
-  for (i = 0; i < chunksLen; i++) {
-    chunk = parseInt(chunks[i]);
+  const words = [];
+  const chunksLen = chunks.length;
+  for (let i = 0; i < chunksLen; i++) {
+    const chunk = parseInt(chunks[i]);
 
     if (chunk) {
-      ints = chunks[i].split("").reverse().map(parseFloat);
+      const ints = chunks[i].split("").reverse().map(parseFloat);
 
       if (ints[1] === 1) {
         ints[0] += 10;
       }
 
-      if ((word = scales[i])) {
-        words.push(word);
+      if (scales[i]) {
+        words.push(scales[i]);
       }
 
-      if ((word = units[ints[0]])) {
-        words.push(word);
+      if (units[ints[0]]) {
+        words.push(units[ints[0]]);
       }
 
-      if ((word = tens[ints[1]])) {
-        words.push(word);
+      if (tens[ints[1]]) {
+        words.push(tens[ints[1]]);
       }
 
       if (ints[0] || ints[1]) {
@@ -122,8 +104,8 @@ function to_english(n, custom_join_character) {
         }
       }
 
-      if ((word = units[ints[2]])) {
-        words.push(word + " hundred");
+      if (units[ints[2]]) {
+        words.push(units[ints[2]] + " hundred");
       }
     }
   }

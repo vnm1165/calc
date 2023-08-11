@@ -1,118 +1,101 @@
-!(function () {
-  var n = " hai ba bốn năm sáu bảy tám chín",
-    a = {
-      units: ("? một" + n).split(" "),
-      tens: ("lẻ mười" + n).split(" "),
-      hundreds: ("không một" + n).split(" "),
-    };
-  const p = "trăm";
-  var t = "x nghìn triệu tỉ nghìn".split(" ");
-  function l(n) {
-    var t = a.units[n[1]],
-      r = [a.tens[n[0]]];
-    return (
-      0 < n[0] && 5 == n[1] && (t = "lăm"),
-      1 < n[0] && (r.push("mươi"), 1 == n[1] && (t = "mốt")),
-      "?" != t && r.push(t),
-      r.join(" ")
+(function () {
+  const numberWords = {
+    units: ["?", "một", "hai", "ba", "bốn", "năm", "sáu", "bảy", "tám", "chín"],
+    tens: [
+      "lẻ",
+      "mười",
+      "hai mươi",
+      "ba mươi",
+      "bốn mươi",
+      "năm mươi",
+      "sáu mươi",
+      "bảy mươi",
+      "tám mươi",
+      "chín mươi",
+    ],
+    hundreds: [
+      "không trăm",
+      "một trăm",
+      "hai trăm",
+      "ba trăm",
+      "bốn trăm",
+      "năm trăm",
+      "sáu trăm",
+      "bảy trăm",
+      "tám trăm",
+      "chín trăm",
+    ],
+  };
+
+  const scales = ["", "nghìn", "triệu", "tỷ", "nghìn tỷ"];
+  const hundred = "trăm";
+
+  function getUnitsInWords(n) {
+    return numberWords.units[n];
+  }
+
+  function getTensInWords(n) {
+    return numberWords.tens[n];
+  }
+
+  function getHundredsInWords(n) {
+    return numberWords.hundreds[n];
+  }
+
+  function convertChunk(chunk, scaleIdx) {
+    if (chunk === "000") {
+      return "";
+    }
+
+    const [hundreds, tens, units] = chunk.split("").map(Number);
+    const words = [];
+
+    if (hundreds !== 0) {
+      words.push(getHundredsInWords(hundreds));
+    }
+
+    if (tens !== 0 || units !== 0) {
+      if (tens === 0) {
+        words.push(getUnitsInWords(units));
+      } else if (tens === 1) {
+        words.push("mười", getUnitsInWords(units));
+      } else {
+        words.push(getTensInWords(tens), getUnitsInWords(units));
+      }
+    }
+
+    if (scaleIdx > 0) {
+      words.push(scales[scaleIdx]);
+    }
+
+    return words.join(" ");
+  }
+
+  function convertToVietnameseNumber(n) {
+    if (parseInt(n) === 0) {
+      return "không";
+    }
+    const numStr = parseInt(n).toString();
+    const chunks = [];
+    let chunk = "";
+
+    for (let i = numStr.length - 1, j = 0; i >= 0; i--, j++) {
+      chunk = numStr[i] + chunk;
+      if (j % 3 === 2 || i === 0) {
+        chunks.unshift(chunk);
+        chunk = "";
+      }
+    }
+
+    const words = chunks.map((chunk, idx) =>
+      convertChunk(chunk, chunks.length - 1 - idx)
     );
+    return words.join(" ");
   }
-  function m(n) {
-    return t[n];
+
+  if (typeof module !== "undefined" && module.exports !== undefined) {
+    module.exports = convertToVietnameseNumber;
+  } else {
+    window.to_vietnamese = convertToVietnameseNumber;
   }
-  function r(n, t) {
-    var r = parseInt(n) + "",
-      s = r.length;
-    if (0 == s || "NaN" == r) return "";
-    for (var u = 0, e = [], i = []; 0 <= s; )
-      e.push(r.substring(s, Math.max(s - 3, 0))), (s -= 3);
-    for (var h, o = 0, u = e.length - 1; 0 <= u; u--)
-      "000" == e[u]
-        ? ((o += 1), 2 == u && 2 == o && i.push(m(u + 1)))
-        : "" != e[u] &&
-          ((o = 0),
-          i.push(
-            (function (n) {
-              switch (n.length) {
-                case 1:
-                  return a.units[n];
-                case 2:
-                  return l(n);
-                case 3:
-                  var t,
-                    r = [a.hundreds[n[0]], p];
-                  return (
-                    "00" != n.slice(1, 3) &&
-                      ((t = l(n.slice(1, 3))), r.push(t)),
-                    r.join(" ")
-                  );
-              }
-              return "";
-            })(e[u])
-          ),
-          (h = m(u)) && "x" != h && i.push(h));
-    return t && i.push(t), i.join(" ");
-  }
-  "undefined" != typeof module && void 0 !== module.exports
-    ? (module.exports = r)
-    : (window.to_vietnamese = r);
-})();
-!(function () {
-  var n = " hai ba bốn năm sáu bảy tám chín",
-    a = {
-      units: ("? một" + n).split(" "),
-      tens: ("lẻ mười" + n).split(" "),
-      hundreds: ("không một" + n).split(" "),
-    };
-  const p = "trăm";
-  var t = "x nghìn triệu tỉ nghìn".split(" ");
-  function l(n) {
-    var t = a.units[n[1]],
-      r = [a.tens[n[0]]];
-    return (
-      0 < n[0] && 5 == n[1] && (t = "lăm"),
-      1 < n[0] && (r.push("mươi"), 1 == n[1] && (t = "mốt")),
-      "?" != t && r.push(t),
-      r.join(" ")
-    );
-  }
-  function m(n) {
-    return t[n];
-  }
-  function r(n, t) {
-    var r = parseInt(n) + "",
-      s = r.length;
-    if (0 == s || "NaN" == r) return "";
-    for (var u = 0, e = [], i = []; 0 <= s; )
-      e.push(r.substring(s, Math.max(s - 3, 0))), (s -= 3);
-    for (var h, o = 0, u = e.length - 1; 0 <= u; u--)
-      "000" == e[u]
-        ? ((o += 1), 2 == u && 2 == o && i.push(m(u + 1)))
-        : "" != e[u] &&
-          ((o = 0),
-          i.push(
-            (function (n) {
-              switch (n.length) {
-                case 1:
-                  return a.units[n];
-                case 2:
-                  return l(n);
-                case 3:
-                  var t,
-                    r = [a.hundreds[n[0]], p];
-                  return (
-                    "00" != n.slice(1, 3) &&
-                      ((t = l(n.slice(1, 3))), r.push(t)),
-                    r.join(" ")
-                  );
-              }
-              return "";
-            })(e[u])
-          ),
-          (h = m(u)) && "x" != h && i.push(h));
-    return t && i.push(t), i.join(" ");
-  }
-  "undefined" != typeof module && void 0 !== module.exports
-    ? (module.exports = r)
-    : (window.to_vietnamese = r);
 })();

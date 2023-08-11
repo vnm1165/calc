@@ -128,9 +128,7 @@ function calculateTotal() {
   let Lang = localStorage.getItem("Lang") || "vi";
   $("#totalbytext_value").text(
     (Lang === "vi"
-      ? total === 0
-        ? "Không"
-        : CapitalizeTheFirstLetter(to_vietnamese(total))
+      ? CapitalizeTheFirstLetter(to_vietnamese(total))
       : CapitalizeTheFirstLetter(to_english(total))) +
       " " +
       selectedOptionText
@@ -170,11 +168,15 @@ $(function () {
     LoadOldData();
   } else {
     const sel = document.getElementById("type_rss");
-    $("#total_value").text("0 " + sel.options[sel.selectedIndex].text);
+    $("#total_value").text(
+      numberWithCommas(0) + " " + sel.options[sel.selectedIndex].text
+    );
 
     let Lang = localStorage.getItem("Lang") || "vi";
     $("#totalbytext_value").text(
-      (Lang === "vi" ? "Không" : "Zero") +
+      (Lang === "vi"
+        ? CapitalizeTheFirstLetter(to_vietnamese(0))
+        : CapitalizeTheFirstLetter(to_english(0))) +
         " " +
         sel.options[sel.selectedIndex].text
     );
@@ -206,7 +208,19 @@ function Clear(remove = true) {
   });
 
   const sel = document.getElementById("type_rss");
-  $("#total_value").text("0 " + sel.options[sel.selectedIndex].text);
+  $("#total_value").text(
+    numberWithCommas(0) + " " + sel.options[sel.selectedIndex].text
+  );
+  let Lang = localStorage.getItem("Lang") || "vi";
+  $("#totalbytext_value").text(
+    (Lang === "vi"
+      ? CapitalizeTheFirstLetter(to_vietnamese(numberConvert(0)))
+      : CapitalizeTheFirstLetter(to_english(numberConvert(0)))) +
+      " " +
+      unit_val +
+      " " +
+      sel.options[sel.selectedIndex].text
+  );
 
   if (remove) {
     data[$("#type_rss").val()].total = 0;
@@ -217,11 +231,15 @@ function Clear(remove = true) {
 
 function LoadOldData() {
   const sel = document.getElementById("type_rss");
-  $("#total_value").text("0 " + sel.options[sel.selectedIndex].text);
+  $("#total_value").text(
+    numberWithCommas(0) + " " + sel.options[sel.selectedIndex].text
+  );
 
   let Lang = localStorage.getItem("Lang") || "vi";
   $("#totalbytext_value").text(
-    (Lang === "vi" ? "Không" : "Zero") +
+    (Lang === "vi"
+      ? CapitalizeTheFirstLetter(to_vietnamese(0))
+      : CapitalizeTheFirstLetter(to_english(0))) +
       " " +
       sel.options[sel.selectedIndex].text
   );
@@ -252,9 +270,7 @@ function LoadOldData() {
 
   $("#totalbytext_value").text(
     (Lang === "vi"
-      ? total === 0
-        ? "Không"
-        : CapitalizeTheFirstLetter(to_vietnamese(total))
+      ? CapitalizeTheFirstLetter(to_vietnamese(total))
       : CapitalizeTheFirstLetter(to_english(total))) +
       " " +
       sel.options[sel.selectedIndex].text
