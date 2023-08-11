@@ -381,7 +381,6 @@ $(function () {
   $("#type_lang").val(Lang);
 
   Rerender(Lang);
-  calculateTotal();
   let local_data = JSON.parse(localStorage.getItem("Data_TT"));
   if (local_data) {
     data = local_data;
@@ -406,6 +405,7 @@ $(function () {
     );
   }
   sortSelectOptions("#type_tt");
+  calculateTotal();
 });
 
 function ClearAll() {
