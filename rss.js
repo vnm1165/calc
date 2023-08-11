@@ -188,24 +188,14 @@ $(function () {
 function Clear(remove = true) {
   const item_price = {};
 
-  [
-    "1k",
-    "5k",
-    "10k",
-    "50k",
-    "100k",
-    "500k",
-    "1m",
-    "5m",
-    "20m",
-    "50m",
-    "cs",
-  ].forEach((size) => {
-    $(`#qty_${size}`).val(0);
-    $(`#price_${size}`).val(0);
-    $(`#price_${size}_with_comma`).val(0);
-    item_price[`item_${size}`] = 0;
-  });
+  ["1k", "5k", "10k", "50k", "100k", "500k", "1m", "5m", "20m", "50m"].forEach(
+    (size) => {
+      $(`#qty_${size}`).val(0);
+      $(`#price_${size}`).val(0);
+      $(`#price_${size}_with_comma`).val(0);
+      item_price[`item_${size}`] = 0;
+    }
+  );
 
   const sel = document.getElementById("type_rss");
   $("#total_value").text(
@@ -214,10 +204,8 @@ function Clear(remove = true) {
   let Lang = localStorage.getItem("Lang") || "vi";
   $("#totalbytext_value").text(
     (Lang === "vi"
-      ? CapitalizeTheFirstLetter(to_vietnamese(numberConvert(0)))
-      : CapitalizeTheFirstLetter(to_english(numberConvert(0)))) +
-      " " +
-      unit_val +
+      ? CapitalizeTheFirstLetter(to_vietnamese(0))
+      : CapitalizeTheFirstLetter(to_english(0))) +
       " " +
       sel.options[sel.selectedIndex].text
   );
@@ -286,6 +274,226 @@ function removeTrailingZeros(input) {
   return input.replace(
     /(^|\D)0*(\d+\.\d*|\d+)/g,
     (_, p1, p2) => p1 + (p2 || "")
+  );
+}
+
+function cleanInput(inputElement) {
+  inputElement.value = removeTrailingZeros(inputElement.value);
+}
+
+function Rerender(lang) {
+  document.title = langTitle.title[lang];
+
+  $("#type_rss option").each(function () {
+    var optionValue = $(this).val();
+    $(this).text(
+      langTitle.rssOption[lang]["option" + optionValue.toUpperCase()]
+    );
+  });
+
+  $("#RSS_CLR").text(langTitle.buttonCLR[lang]);
+  $("#Item_Type").text(langTitle.typeItem[lang].Item_Type);
+  $("#Quantity").text(langTitle.typeItem[lang].Quantity);
+  $("#Total").text(langTitle.typeItem[lang].Total);
+  $("#cs_text").text(langTitle.cs[lang]);
+  $("#total_text").text(langTitle.total[lang]);
+  $("#Total-with-comma").text(langTitle.totalWithComma[lang]);
+  $("#totalbytext").text(langTitle.totalbytext[lang]);
+}
+
+function CapitalizeTheFirstLetter(str) {
+  return str.charAt(0).toUpperCase() + str.slice(1);
+}
+
+function numberWithCommas(x, comma_flag = true) {
+  return comma_flag
+    ? x.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",")
+    : x.toString();
+}
+
+function calculateTotal() {
+  const item_price = {};
+
+  ["1k", "5k", "10k", "50k", "100k", "500k", "1m", "5m", "20m", "50m"].forEach(
+    (size) => {
+      const qty = $(`#qty_${size}`).val();
+      const price = qty * unit_price[`item_${size}`];
+      $(`#price_${size}`).val(numberWithCommas(price, false));
+      $(`#price_${size}_with_comma`).val(numberWithCommas(price));
+      item_price[`item_${size}`] = price;
+    }
+  );
+
+  const qtyCs = $("#qty_cs").val();
+  const priceCs = $("#price_cs").val();
+  item_price.item_cs = qtyCs * priceCs;
+  $("#price_cs_with_comma").val(numberWithCommas(item_price.item_cs));
+
+  let total = 0;
+  Object.values(item_price).forEach((price) => (total += price));
+
+  const selectedOptionText = $("#type_rss option:selected").text();
+
+  $("#total_value").text(numberWithCommas(total) + " " + selectedOptionText);
+  let Lang = localStorage.getItem("Lang") || "vi";
+  $("#totalbytext_value").text(
+    (Lang === "vi"
+      ? CapitalizeTheFirstLetter(to_vietnamese(total))
+      : CapitalizeTheFirstLetter(to_english(total))) +
+      " " +
+      selectedOptionText
+  );
+  data[$("#type_rss").val()].total = total;
+  data[$("#type_rss").val()].item_price = item_price;
+  localStorage.setItem("Data", JSON.stringify(data));
+}
+
+function sortSelectOptions(selectElement) {
+  var options = $(selectElement + " option");
+
+  options.sort(function (a, b) {
+    if (a.text.toUpperCase() > b.text.toUpperCase()) return 1;
+    else if (a.text.toUpperCase() < b.text.toUpperCase()) return -1;
+    else return 0;
+  });
+
+  $(selectElement).empty().append(options);
+}
+
+$(function () {
+  $(".qty, .price").on("change keyup", calculateTotal);
+
+  $("#type_rss").on("change", function () {
+    Clear(false);
+    LoadOldData();
+  });
+
+  const Lang = localStorage.getItem("Lang") || "vi";
+  $("#type_lang").val(Lang);
+  Rerender(Lang);
+
+  const localData = JSON.parse(localStorage.getItem("Data"));
+  if (localData) {
+    data = localData;
+    LoadOldData();
+  } else {
+    const sel = document.getElementById("type_rss");
+    $("#total_value").text(
+      numberWithCommas(0) + " " + sel.options[sel.selectedIndex].text
+    );
+
+    let Lang = localStorage.getItem("Lang") || "vi";
+    $("#totalbytext_value").text(
+      (Lang === "vi"
+        ? CapitalizeTheFirstLetter(to_vietnamese(0))
+        : CapitalizeTheFirstLetter(to_english(0))) +
+        " " +
+        sel.options[sel.selectedIndex].text
+    );
+  }
+
+  sortSelectOptions("#type_rss");
+});
+
+function Clear(remove = true) {
+  const item_price = {};
+
+  [
+    "1k",
+    "5k",
+    "10k",
+    "50k",
+    "100k",
+    "500k",
+    "1m",
+    "5m",
+    "20m",
+    "50m",
+    "cs",
+  ].forEach((size) => {
+    $(`#qty_${size}`).val(0);
+    $(`#price_${size}`).val(0);
+    $(`#price_${size}_with_comma`).val(0);
+    item_price[`item_${size}`] = 0;
+  });
+
+  const sel = document.getElementById("type_rss");
+  $("#total_value").text(
+    numberWithCommas(0) + " " + sel.options[sel.selectedIndex].text
+  );
+  let Lang = localStorage.getItem("Lang") || "vi";
+  $("#totalbytext_value").text(
+    (Lang === "vi"
+      ? CapitalizeTheFirstLetter(to_vietnamese(0))
+      : CapitalizeTheFirstLetter(to_english(0))) +
+      " " +
+      sel.options[sel.selectedIndex].text
+  );
+
+  if (remove) {
+    data[$("#type_rss").val()].total = 0;
+    data[$("#type_rss").val()].item_price = item_price;
+    localStorage.setItem("Data", JSON.stringify(data));
+  }
+}
+
+function LoadOldData() {
+  const sel = document.getElementById("type_rss");
+  $("#total_value").text(
+    numberWithCommas(0) + " " + sel.options[sel.selectedIndex].text
+  );
+
+  let Lang = localStorage.getItem("Lang") || "vi";
+  $("#totalbytext_value").text(
+    (Lang === "vi"
+      ? CapitalizeTheFirstLetter(to_vietnamese(0))
+      : CapitalizeTheFirstLetter(to_english(0))) +
+      " " +
+      sel.options[sel.selectedIndex].text
+  );
+  const oldData = data[$("#type_rss").val()];
+  const total = oldData.total;
+  const item_price = oldData.item_price;
+
+  ["1k", "5k", "10k", "50k", "100k", "500k", "1m", "5m", "20m", "50m"].forEach(
+    (size) => {
+      const qty = item_price[`item_${size}`] / unit_price[`item_${size}`];
+      $(`#qty_${size}`).val(qty || 0);
+      $(`#price_${size}`).val(
+        numberWithCommas(item_price[`item_${size}`] || 0, false)
+      );
+      $(`#price_${size}_with_comma`).val(
+        numberWithCommas(item_price[`item_${size}`] || 0)
+      );
+    }
+  );
+
+  $("#qty_cs").val(1);
+  $("#price_cs").val(item_price.item_cs || 0);
+  $("#price_cs_with_comma").val(numberWithCommas(item_price.item_cs || 0));
+
+  $("#total_value").text(
+    numberWithCommas(total) + " " + sel.options[sel.selectedIndex].text
+  );
+
+  $("#totalbytext_value").text(
+    (Lang === "vi"
+      ? CapitalizeTheFirstLetter(to_vietnamese(total))
+      : CapitalizeTheFirstLetter(to_english(total))) +
+      " " +
+      sel.options[sel.selectedIndex].text
+  );
+}
+
+function ClearAll() {
+  Clear();
+  localStorage.removeItem("Data");
+}
+
+function removeTrailingZeros(input) {
+  return (
+    input.replace(/(^|\D)0*(\d+\.\d*|\d+)/g, (_, p1, p2) => p1 + (p2 || "")) ||
+    0
   );
 }
 

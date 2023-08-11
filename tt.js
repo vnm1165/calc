@@ -353,7 +353,7 @@ function LoadOldData() {
         " " +
         unit_val +
         " " +
-        sel.find(":selected").text()
+        selectedText
     );
   }
 }
@@ -416,9 +416,9 @@ function ClearAll() {
 }
 
 function removeTrailingZeros(input) {
-  return input.replace(
-    /(^|\D)0*(\d+\.\d*|\d+)/g,
-    (_, p1, p2) => p1 + (p2 || "")
+  return (
+    input.replace(/(^|\D)0*(\d+\.\d*|\d+)/g, (_, p1, p2) => p1 + (p2 || "")) ||
+    0
   );
 }
 
