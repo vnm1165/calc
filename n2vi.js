@@ -67,11 +67,14 @@
   }
   function to_vietnamese(input, currency) {
     var str = parseInt(input) + "";
+
     var index = str.length;
     if (index == 0 || str == "NaN") return "";
     var i = 0;
     var arr = [];
     var result = [];
+
+    if (str === "0") return "Không";
 
     //explode number string into blocks of 3numbers and push to queue
     while (index >= 0) {
