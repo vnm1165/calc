@@ -1,0 +1,459 @@
+<html>
+  <head>
+    <title>Tính Tài Nguyên Evony</title>
+    <link
+      rel="icon"
+      type="image/png"
+      href="https://raw.githubusercontent.com/vnm1165/vnm1165.github.io/main/vnm.jpg"
+    />
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/normalize/5.0.0/normalize.min.css"
+    />
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/4.5.0/css/bootstrap.min.css"
+    />
+    <style>
+      .row-heading {
+        font-size: 1.3rem;
+        font-weight: bold;
+      }
+      .total {
+        font-size: 2rem;
+        font-weight: bold;
+      }
+      .total-val {
+        font-size: 2rem;
+      }
+      .row input {
+        width: 100%;
+      }
+
+      #type_rss:focus {
+        outline: 0;
+      }
+    </style>
+  </head>
+  <body translate="no">
+    <div class="container mt-4">
+      <div class="row">
+        <select name="type_rss" id="type_rss">
+          <option value="luongthuc">Lương Thực</option>
+          <option value="go">Gỗ</option>
+          <option value="da">Đá</option>
+          <option value="quang">Quặng</option>
+        </select>
+        <button
+          style="margin-left: 5; outline: none; border: 0; padding: 5"
+          onclick="ClearAll()"
+          id="RSS_CLR"
+        >
+          Xóa
+        </button>
+      </div>
+      <br />
+      <div class="row">
+        <div class="col-2 row-heading" id="Item_Type">Loại Item</div>
+        <div class="col-2 row-heading" id="Quantity">Số Lượng</div>
+        <div class="col-4 row-heading" id="Total">Tổng</div>
+        <div class="col-4 row-heading" id="Total-with-comma">
+          Tổng với dấu phẩy
+        </div>
+      </div>
+      <div class="row">
+        <div class="col-2">1K</div>
+        <div class="col-2">
+          <input
+            type="number"
+            value="0"
+            class="qty"
+            id="qty_1k"
+            min="0"
+            oninput="cleanInput(this)"
+          />
+        </div>
+        <div class="col-4">
+          <input
+            type="text"
+            readonly=""
+            value="0"
+            id="price_1k"
+            disabled
+            min="0"
+            oninput="cleanInput(this)"
+          />
+        </div>
+        <div class="col-4">
+          <input
+            type="text"
+            readonly=""
+            value="0"
+            id="price_1k_with_comma"
+            disabled
+            oninput="cleanInput(this)"
+          />
+        </div>
+      </div>
+      <div class="row my-3">
+        <div class="col-2">5K</div>
+        <div class="col-2">
+          <input
+            type="number"
+            value="0"
+            class="qty"
+            id="qty_5k"
+            min="0"
+            oninput="cleanInput(this)"
+          />
+        </div>
+        <div class="col-4">
+          <input
+            type="text"
+            readonly=""
+            value="0"
+            id="price_5k"
+            disabled
+            min="0"
+            oninput="cleanInput(this)"
+          />
+        </div>
+        <div class="col-4">
+          <input
+            type="text"
+            readonly=""
+            value="0"
+            id="price_5k_with_comma"
+            disabled
+            oninput="cleanInput(this)"
+          />
+        </div>
+      </div>
+      <div class="row my-3">
+        <div class="col-2">10K</div>
+        <div class="col-2">
+          <input
+            type="number"
+            class="qty"
+            value="0"
+            id="qty_10k"
+            min="0"
+            oninput="cleanInput(this)"
+          />
+        </div>
+        <div class="col-4">
+          <input
+            type="text"
+            readonly=""
+            value="0"
+            id="price_10k"
+            disabled
+            min="0"
+            oninput="cleanInput(this)"
+          />
+        </div>
+        <div class="col-4">
+          <input
+            type="text"
+            readonly=""
+            value="0"
+            id="price_10k_with_comma"
+            disabled
+            oninput="cleanInput(this)"
+          />
+        </div>
+      </div>
+      <div class="row my-3">
+        <div class="col-2">50K</div>
+        <div class="col-2">
+          <input
+            type="number"
+            class="qty"
+            value="0"
+            id="qty_50k"
+            min="0"
+            oninput="cleanInput(this)"
+          />
+        </div>
+        <div class="col-4">
+          <input
+            type="text"
+            readonly=""
+            value="0"
+            id="price_50k"
+            disabled
+            min="0"
+            oninput="cleanInput(this)"
+          />
+        </div>
+        <div class="col-4">
+          <input
+            type="text"
+            readonly=""
+            value="0"
+            id="price_50k_with_comma"
+            disabled
+            oninput="cleanInput(this)"
+          />
+        </div>
+      </div>
+      <div class="row my-3">
+        <div class="col-2">100K</div>
+        <div class="col-2">
+          <input
+            type="number"
+            class="qty"
+            value="0"
+            id="qty_100k"
+            min="0"
+            oninput="cleanInput(this)"
+          />
+        </div>
+        <div class="col-4">
+          <input
+            type="text"
+            readonly=""
+            value="0"
+            id="price_100k"
+            disabled
+            min="0"
+            oninput="cleanInput(this)"
+          />
+        </div>
+        <div class="col-4">
+          <input
+            type="text"
+            readonly=""
+            value="0"
+            id="price_100k_with_comma"
+            disabled
+            oninput="cleanInput(this)"
+          />
+        </div>
+      </div>
+      <div class="row my-3">
+        <div class="col-2">500K</div>
+        <div class="col-2">
+          <input
+            type="number"
+            class="qty"
+            value="0"
+            id="qty_500k"
+            min="0"
+            oninput="cleanInput(this)"
+          />
+        </div>
+        <div class="col-4">
+          <input
+            type="text"
+            readonly=""
+            value="0"
+            id="price_500k"
+            disabled
+            min="0"
+            oninput="cleanInput(this)"
+          />
+        </div>
+        <div class="col-4">
+          <input
+            type="text"
+            readonly=""
+            value="0"
+            id="price_500k_with_comma"
+            disabled
+            oninput="cleanInput(this)"
+          />
+        </div>
+      </div>
+      <div class="row my-3">
+        <div class="col-2">1M</div>
+        <div class="col-2">
+          <input
+            type="number"
+            class="qty"
+            value="0"
+            id="qty_1m"
+            min="0"
+            oninput="cleanInput(this)"
+          />
+        </div>
+        <div class="col-4">
+          <input
+            type="text"
+            readonly=""
+            value="0"
+            id="price_1m"
+            disabled
+            min="0"
+            oninput="cleanInput(this)"
+          />
+        </div>
+        <div class="col-4">
+          <input
+            type="text"
+            readonly=""
+            value="0"
+            id="price_1m_with_comma"
+            disabled
+            oninput="cleanInput(this)"
+          />
+        </div>
+      </div>
+      <div class="row my-3">
+        <div class="col-2">5M</div>
+        <div class="col-2">
+          <input
+            type="number"
+            class="qty"
+            value="0"
+            id="qty_5m"
+            min="0"
+            oninput="cleanInput(this)"
+          />
+        </div>
+        <div class="col-4">
+          <input
+            type="text"
+            readonly=""
+            value="0"
+            id="price_5m"
+            disabled
+            min="0"
+            oninput="cleanInput(this)"
+          />
+        </div>
+        <div class="col-4">
+          <input
+            type="text"
+            readonly=""
+            value="0"
+            id="price_5m_with_comma"
+            disabled
+            oninput="cleanInput(this)"
+          />
+        </div>
+      </div>
+      <div class="row my-3">
+        <div class="col-2">20M</div>
+        <div class="col-2">
+          <input
+            type="number"
+            class="qty"
+            value="0"
+            id="qty_20m"
+            min="0"
+            oninput="cleanInput(this)"
+          />
+        </div>
+        <div class="col-4">
+          <input
+            type="text"
+            readonly=""
+            value="0"
+            id="price_20m"
+            disabled
+            min="0"
+            oninput="cleanInput(this)"
+          />
+        </div>
+        <div class="col-4">
+          <input
+            type="text"
+            readonly=""
+            value="0"
+            id="price_20m_with_comma"
+            disabled
+            oninput="cleanInput(this)"
+          />
+        </div>
+      </div>
+      <div class="row my-3">
+        <div class="col-2">50M</div>
+        <div class="col-2">
+          <input
+            type="number"
+            class="qty"
+            value="0"
+            id="qty_50m"
+            min="0"
+            oninput="cleanInput(this)"
+          />
+        </div>
+        <div class="col-4">
+          <input
+            type="text"
+            readonly=""
+            value="0"
+            id="price_50m"
+            disabled
+            min="0"
+            oninput="cleanInput(this)"
+          />
+        </div>
+        <div class="col-4">
+          <input
+            type="text"
+            readonly=""
+            value="0"
+            id="price_50m_with_comma"
+            disabled
+            oninput="cleanInput(this)"
+          />
+        </div>
+      </div>
+      <div class="row my-3">
+        <div class="col-2" id="cs_text">Có sẵn</div>
+        <div class="col-2">
+          <input
+            type="number"
+            class="qty"
+            value="1"
+            id="qty_cs"
+            min="0"
+            readonly=""
+            disabled
+            oninput="cleanInput(this)"
+          />
+        </div>
+        <div class="col-4">
+          <input
+            class="price"
+            type="number"
+            value="0"
+            id="price_cs"
+            min="0"
+            oninput="cleanInput(this)"
+          />
+        </div>
+        <div class="col-4">
+          <input
+            type="text"
+            readonly=""
+            value="0"
+            id="price_cs_with_comma"
+            disabled
+            oninput="cleanInput(this)"
+          />
+        </div>
+      </div>
+      <div class="row my-4">
+        <div class="col-7 text-right total" id="total_text">Tổng:</div>
+        <div class="col-4 total-val">
+          <span id="total_value">0</span>
+        </div>
+      </div>
+      <div class="row my-4">
+        <div class="col-7 text-right total" id="totalbytext">
+          Tổng bằng chữ:
+        </div>
+        <div class="col-4 total-val">
+          <span id="totalbytext_value">Không</span>
+        </div>
+      </div>
+      <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+      <script id="rss-rendered-js" src="rss.js"></script>
+      <script id="tt-rendered-js" src="n2vi.js"></script>
+      <script id="tt-rendered-js" src="n2en.js"></script>
+    </div>
+  </body>
+</html>

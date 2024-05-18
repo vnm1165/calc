@@ -1,0 +1,219 @@
+<title>Tính Tăng Tốc Evony</title>
+<link href=https://raw.githubusercontent.com/vnm1165/vnm1165.github.io/main/vnm.jpg rel=icon type=image/png>
+<link href=https://cdnjs.cloudflare.com/ajax/libs/normalize/5.0.0/normalize.min.css rel=stylesheet>
+<link href=https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/4.5.0/css/bootstrap.min.css rel=stylesheet>
+<style>
+  .row-heading {
+    font-size: 1.3rem;
+    font-weight: 700
+  }
+
+  .total {
+    font-size: 2rem;
+    font-weight: 700
+  }
+
+  .total-val {
+    font-size: 2rem
+  }
+
+  .row input {
+    width: 100%
+  }
+
+  #type_tt:focus {
+    outline: 0
+  }
+
+  #type_unit:focus {
+    outline: 0
+  }
+</style>
+<body translate=no>
+  <div class="container mt-4">
+    <div class=row>
+      <select id=type_tt name=type_tt>
+        <option value=thuong>Tăng Tốc Thường
+        <option value=quan>Tăng Tốc Luyện Quân
+        <option value=nghiencuu>Tăng Tốc Nghiên Cứu
+        <option value=bay>Tăng Tốc Xây Bẫy
+        <option value=chetac>Tăng Tốc Chế Tác
+        <option value=xaydung>Tăng Tốc Xây Dựng
+        <option value=mau>Tăng Tốc Hồi Máu
+      </select>
+      <select id=type_unit name=type_unit style=margin-left:5px>
+        <option value=phut>Phút
+        <option value=gio>Giờ
+        <option value=ngay>Ngày
+      </select>
+      <button id=TT_CLR onclick=ClearAll() style=margin-left:5;outline:0;border:0;padding:5>Xóa</button>
+    </div>
+    <br>
+    <div class=row>
+      <div class="col-2 row-heading" id=Item_Type>Loại Item</div>
+      <div class="col-2 row-heading" id=Quantity>Số Lượng</div>
+      <div class="col-4 row-heading" id=Total>Tổng</div>
+      <div class="col-4 row-heading" id=Total-with-comma>Tổng với dấu phẩy</div>
+    </div>
+    <div class=row>
+      <div class=col-2 id=5_Phut>5 Phút</div>
+      <div class=col-2>
+        <input id=qty_5p oninput=cleanInput(this) value=0 class=qty min=0 type=number>
+      </div>
+      <div class=col-4>
+        <input id=price_5p oninput=cleanInput(this) value=0 disabled readonly>
+      </div>
+      <div class=col-4>
+        <input id=price_5p_with_comma oninput=cleanInput(this) value=0 disabled readonly>
+      </div>
+    </div>
+    <div class="row my-3">
+      <div class=col-2 id=10_Phut>10 Phút</div>
+      <div class=col-2>
+        <input id=qty_10p oninput=cleanInput(this) value=0 class=qty min=0 type=number>
+      </div>
+      <div class=col-4>
+        <input id=price_10p oninput=cleanInput(this) value=0 disabled readonly>
+      </div>
+      <div class=col-4>
+        <input id=price_10p_with_comma oninput=cleanInput(this) value=0 disabled readonly>
+      </div>
+    </div>
+    <div class="row my-3">
+      <div class=col-2 id=15_Phut>15 Phút</div>
+      <div class=col-2>
+        <input id=qty_15p oninput=cleanInput(this) value=0 class=qty min=0 type=number>
+      </div>
+      <div class=col-4>
+        <input id=price_15p oninput=cleanInput(this) value=0 disabled readonly>
+      </div>
+      <div class=col-4>
+        <input id=price_15p_with_comma oninput=cleanInput(this) value=0 disabled readonly>
+      </div>
+    </div>
+    <div class="row my-3">
+      <div class=col-2 id=30_Phut>30 Phút</div>
+      <div class=col-2>
+        <input id=qty_30p oninput=cleanInput(this) value=0 class=qty min=0 type=number>
+      </div>
+      <div class=col-4>
+        <input id=price_30p oninput=cleanInput(this) value=0 disabled readonly>
+      </div>
+      <div class=col-4>
+        <input id=price_30p_with_comma oninput=cleanInput(this) value=0 disabled readonly>
+      </div>
+    </div>
+    <div class="row my-3">
+      <div class=col-2 id=60_Phut>60 Phút</div>
+      <div class=col-2>
+        <input id=qty_60p oninput=cleanInput(this) value=0 class=qty min=0 type=number>
+      </div>
+      <div class=col-4>
+        <input id=price_60p oninput=cleanInput(this) value=0 disabled readonly>
+      </div>
+      <div class=col-4>
+        <input id=price_60p_with_comma oninput=cleanInput(this) value=0 disabled readonly>
+      </div>
+    </div>
+    <div class="row my-3">
+      <div class=col-2 id=3_Gio>3 Giờ</div>
+      <div class=col-2>
+        <input id=qty_3g oninput=cleanInput(this) value=0 class=qty min=0 type=number>
+      </div>
+      <div class=col-4>
+        <input id=price_3g oninput=cleanInput(this) value=0 disabled readonly>
+      </div>
+      <div class=col-4>
+        <input id=price_3g_with_comma oninput=cleanInput(this) value=0 disabled readonly>
+      </div>
+    </div>
+    <div class="row my-3">
+      <div class=col-2 id=8_Gio>8 Giờ</div>
+      <div class=col-2>
+        <input id=qty_8g oninput=cleanInput(this) value=0 class=qty min=0 type=number>
+      </div>
+      <div class=col-4>
+        <input id=price_8g oninput=cleanInput(this) value=0 disabled readonly>
+      </div>
+      <div class=col-4>
+        <input id=price_8g_with_comma oninput=cleanInput(this) value=0 disabled readonly>
+      </div>
+    </div>
+    <div class="row my-3">
+      <div class=col-2 id=12_Gio>12 Giờ</div>
+      <div class=col-2>
+        <input id=qty_12g oninput=cleanInput(this) value=0 class=qty min=0 type=number>
+      </div>
+      <div class=col-4>
+        <input id=price_12g oninput=cleanInput(this) value=0 disabled readonly>
+      </div>
+      <div class=col-4>
+        <input id=price_12g_with_comma oninput=cleanInput(this) value=0 disabled readonly>
+      </div>
+    </div>
+    <div class="row my-3">
+      <div class=col-2 id=24_Gio>24 Giờ</div>
+      <div class=col-2>
+        <input id=qty_24g oninput=cleanInput(this) value=0 class=qty min=0 type=number>
+      </div>
+      <div class=col-4>
+        <input id=price_24g oninput=cleanInput(this) value=0 disabled readonly>
+      </div>
+      <div class=col-4>
+        <input id=price_24g_with_comma oninput=cleanInput(this) value=0 disabled readonly>
+      </div>
+    </div>
+    <div class="row my-3">
+      <div class=col-2 id=3_Ngay>3 Ngày</div>
+      <div class=col-2>
+        <input id=qty_3d oninput=cleanInput(this) value=0 class=qty min=0 type=number>
+      </div>
+      <div class=col-4>
+        <input id=price_3d oninput=cleanInput(this) value=0 disabled readonly>
+      </div>
+      <div class=col-4>
+        <input id=price_3d_with_comma oninput=cleanInput(this) value=0 disabled readonly>
+      </div>
+    </div>
+    <div class="row my-3">
+      <div class=col-2 id=7_Ngay>7 Ngày</div>
+      <div class=col-2>
+        <input id=qty_7d oninput=cleanInput(this) value=0 class=qty min=0 type=number>
+      </div>
+      <div class=col-4>
+        <input id=price_7d oninput=cleanInput(this) value=0 disabled readonly>
+      </div>
+      <div class=col-4>
+        <input id=price_7d_with_comma oninput=cleanInput(this) value=0 disabled readonly>
+      </div>
+    </div>
+    <div class="row my-3">
+      <div class=col-2 id=30_Ngay>30 Ngày</div>
+      <div class=col-2>
+        <input id=qty_30d oninput=cleanInput(this) value=0 class=qty min=0 type=number>
+      </div>
+      <div class=col-4>
+        <input id=price_30d oninput=cleanInput(this) value=0 disabled readonly>
+      </div>
+      <div class=col-4>
+        <input id=price_30d_with_comma oninput=cleanInput(this) value=0 disabled readonly>
+      </div>
+    </div>
+    <div class="row my-4">
+      <div class="col-7 text-right total" id=total_text>Tổng:</div>
+      <div class="col-4 total-val">
+        <span id=total_value>0</span>
+      </div>
+    </div>
+    <div class="row my-4">
+      <div class="col-7 text-right total" id=totalbytext>Tổng bằng chữ:</div>
+      <div class="col-4 total-val">
+        <span id=totalbytext_value>Không</span>
+      </div>
+    </div>
+    <script src=https://cdnjs.cloudflare.com/ajax/libs/jquery/3.5.1/jquery.min.js></script>
+    <script src=tt.js id=tt-rendered-js></script>
+    <script src=n2vi.js id=tt-rendered-js></script>
+    <script src=n2en.js id=tt-rendered-js></script>
+  </div>
+</body>
